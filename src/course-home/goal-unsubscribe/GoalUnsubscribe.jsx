@@ -4,6 +4,7 @@ import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { useIntl } from '@edx/frontend-platform/i18n';
 
 import HeaderSlot from '../../plugin-slots/HeaderSlot';
+import { RobboFooter } from '../../robbo-layout';
 import PageLoading from '../../generic/PageLoading';
 import { unsubscribeFromCourseGoal } from '../data/api';
 
@@ -48,6 +49,7 @@ const GoalUnsubscribe = () => {
           <ResultPage error={error} courseTitle={data.courseTitle} />
         )}
       </main>
+      <RobboFooter />
     </>
   );
 };

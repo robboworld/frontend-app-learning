@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { PluginSlot } from '@openedx/frontend-plugin-framework';
 
-import { LearningHeader as Header } from '@edx/frontend-component-header';
+import { RobboHeader as Header } from '../../robbo-layout';
 
 const HeaderSlot = ({
   courseOrg, courseNumber, courseTitle, showUserDropdown,
@@ -20,9 +20,6 @@ const HeaderSlot = ({
     }}
   >
     <Header
-      courseOrg={courseOrg}
-      courseNumber={courseNumber}
-      courseTitle={courseTitle}
       showUserDropdown={showUserDropdown}
     />
   </PluginSlot>
