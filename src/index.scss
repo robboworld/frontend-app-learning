@@ -3,13 +3,22 @@
 @import "~@openedx/paragon/scss/core/core";
 @import "~@edx/brand/paragon/overrides";
 
+// Sticky footer: AppProvider wraps the app in div[data-testid="browser-router"], so flex must
+// continue through that wrapper — otherwise #root grows to 100vh but the inner stack stays content-sized.
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
+  > [data-testid="browser-router"] {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
   main {
-    flex-grow: 1;
+    flex: 1 0 auto;
   }
 
   header {

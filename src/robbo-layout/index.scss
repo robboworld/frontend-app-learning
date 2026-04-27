@@ -197,20 +197,16 @@ $robbo-mfe-header-profile-toggle-fs: 1rem;
   box-sizing: border-box;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+// Global #root / main flex for sticky footer lives in src/index.scss (browser-router wrapper).
 
 .robbo-layout-page {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   min-height: 100vh;
 }
 
-.robbo-layout-page > main,
-#root > main {
+.robbo-layout-page>main {
   flex: 1 0 auto;
 }
 
