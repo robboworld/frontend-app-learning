@@ -82,6 +82,23 @@
   }
 }
 
+// Course home / courseware tab bar — Robbo green instead of theme primary (blue).
+$robbo-course-tab-accent: #00b140;
+$robbo-course-tab-accent-strong: #007a3d;
+
+.course-tabs-navigation .nav-underline-tabs .nav-link {
+  &:hover,
+  &:focus {
+    color: $robbo-course-tab-accent;
+    border-bottom-color: $robbo-course-tab-accent;
+  }
+
+  &.active {
+    color: $robbo-course-tab-accent-strong;
+    border-bottom-color: $robbo-course-tab-accent-strong;
+  }
+}
+
 .pgn__menu-select .pgn__menu-select-popup {
   position: static;
 }
@@ -435,6 +452,34 @@
 .raised-card {
   border: 0 !important;
   box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, .2) !important;
+}
+
+// Outline tab — «Начать / Возобновить курс» (Paragon `variant="brand"`). Darker green than header bar (#00b140).
+$robbo-course-outline-brand-btn-bg: #007a3d;
+$robbo-course-outline-brand-btn-hover: #006233;
+
+.course-outline-tab .raised-card .btn-brand {
+  background-color: $robbo-course-outline-brand-btn-bg;
+  border-color: $robbo-course-outline-brand-btn-bg;
+  color: #fff;
+
+  &:visited {
+    color: #fff;
+  }
+
+  &:hover,
+  &:active {
+    background-color: $robbo-course-outline-brand-btn-hover;
+    border-color: $robbo-course-outline-brand-btn-hover;
+    color: #fff;
+  }
+
+  &:focus {
+    background-color: $robbo-course-outline-brand-btn-bg;
+    border-color: $robbo-course-outline-brand-btn-bg;
+    color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba($robbo-course-outline-brand-btn-bg, 0.35);
+  }
 }
 
 .icon-hover {

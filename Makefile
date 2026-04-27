@@ -42,7 +42,11 @@ pull_translations:
 	           translations/frontend-lib-special-exams/src/i18n/messages:frontend-lib-special-exams \
 	           translations/frontend-app-learning/src/i18n/messages:frontend-app-learning
 
-	$(intl_imports) frontend-platform paragon frontend-component-header frontend-component-footer frontend-lib-special-exams frontend-app-learning
+	mkdir -p $(i18n)/messages/robbo-custom
+	cp $(i18n)/robbo-overrides/en.json $(i18n)/messages/robbo-custom/en.json
+	cp $(i18n)/robbo-overrides/ru.json $(i18n)/messages/robbo-custom/ru.json
+
+	$(intl_imports) frontend-platform paragon frontend-component-header frontend-component-footer frontend-lib-special-exams frontend-app-learning robbo-custom
 
 
 # This target is used by Travis.

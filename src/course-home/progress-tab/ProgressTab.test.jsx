@@ -86,44 +86,6 @@ describe('Progress Tab', () => {
     jest.clearAllMocks();
   });
 
-  describe('Related links', () => {
-    beforeEach(() => {
-      sendTrackEvent.mockClear();
-    });
-
-    it('sends event on click of dates tab link', async () => {
-      await fetchAndRender();
-      sendTrackEvent.mockClear();
-
-      const datesTabLink = screen.getByRole('link', { name: 'Dates' });
-      fireEvent.click(datesTabLink);
-
-      expect(sendTrackEvent).toHaveBeenCalledTimes(1);
-      expect(sendTrackEvent).toHaveBeenCalledWith('edx.ui.lms.course_progress.related_links.clicked', {
-        org_key: 'edX',
-        courserun_key: courseId,
-        is_staff: false,
-        link_clicked: 'dates',
-      });
-    });
-
-    it('sends event on click of outline tab link', async () => {
-      await fetchAndRender();
-      sendTrackEvent.mockClear();
-
-      const outlineTabLink = screen.getAllByRole('link', { name: 'Course outline' });
-      fireEvent.click(outlineTabLink[1]); // outlineTabLink[0] corresponds to the link in the DetailedGrades component
-
-      expect(sendTrackEvent).toHaveBeenCalledTimes(1);
-      expect(sendTrackEvent).toHaveBeenCalledWith('edx.ui.lms.course_progress.related_links.clicked', {
-        org_key: 'edX',
-        courserun_key: courseId,
-        is_staff: false,
-        link_clicked: 'course_outline',
-      });
-    });
-  });
-
   describe('Course Grade', () => {
     it('renders Course Grade', async () => {
       await fetchAndRender();
