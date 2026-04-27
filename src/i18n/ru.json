@@ -481,5 +481,6 @@
   "tours.weeklyGoalsCheckpoint.title": "Установите цель курса",
   "tray.close.button": "Закрыть лоток",
   "unit.bookmark.button.add.bookmark": "Добавить эту страницу в закладки",
-  "unit.bookmark.button.remove.bookmark": "В закладках"
+  "unit.bookmark.button.remove.bookmark": "В закладках",
+  "robbo.header.mainNav.courseCatalog": "Каталог курсов"
 }
