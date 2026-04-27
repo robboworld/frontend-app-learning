@@ -6,19 +6,6 @@ import {
   OkayButtonFormattedMessage,
 } from '../GenericTourFormattedMessages';
 
-const datesCheckpoint = {
-  body: <FormattedMessage
-    id="tours.datesCheckpoint.body"
-    defaultMessage="Important dates can help you stay on track."
-  />,
-  placement: 'left',
-  target: '#courseHome-dates',
-  title: <FormattedMessage
-    id="tours.datesCheckpoint.title"
-    defaultMessage="Keep on top of key dates"
-  />,
-};
-
 const outlineCheckpoint = {
   body: <FormattedMessage
     id="tours.outlineCheckpoint.body"
@@ -38,7 +25,7 @@ const tabNavigationCheckpoint = {
     defaultMessage="These tabs can be used to access other course materials, such as your progress, syllabus, etc."
   />,
   placement: 'bottom',
-  target: '#courseTabsNavigation',
+  target: '#courseHome-datesTabLink',
   title: <FormattedMessage
     id="tours.tabNavigationCheckpoint.title"
     defaultMessage="Additional course resources"
@@ -58,19 +45,6 @@ const upgradeCheckpoint = {
   />,
 };
 
-const weeklyGoalsCheckpoint = {
-  body: <FormattedMessage
-    id="tours.weeklyGoalsCheckpoint.body"
-    defaultMessage="Setting a goal makes you more likely to complete your course."
-  />,
-  placement: 'left',
-  target: '#courseHome-weeklyLearningGoal',
-  title: <FormattedMessage
-    id="tours.weeklyGoalsCheckpoint.title"
-    defaultMessage="Set a course goal"
-  />,
-};
-
 const newUserCourseHomeTour = ({
   enabled,
   onDismiss,
@@ -79,10 +53,8 @@ const newUserCourseHomeTour = ({
   advanceButtonText: <NextButtonFormattedMessage />,
   checkpoints: [
     outlineCheckpoint,
-    datesCheckpoint,
     tabNavigationCheckpoint,
     upgradeCheckpoint,
-    weeklyGoalsCheckpoint,
   ],
   dismissButtonText: <DismissButtonFormattedMessage />,
   enabled,

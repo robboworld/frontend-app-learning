@@ -17,6 +17,7 @@ import {
   endCoursewareTour,
   fetchTourData,
 } from './data';
+import { LOADED } from '@src/constants';
 
 const ProductTours = ({
   activeTab,
@@ -25,7 +26,7 @@ const ProductTours = ({
   org,
 }) => {
   const {
-    proctoringPanelStatus,
+    courseStatus,
   } = useSelector(state => state.courseHome);
 
   const {
@@ -49,7 +50,9 @@ const ProductTours = ({
   const isOutlineTab = activeTab === 'outline';
 
   useEffect(() => {
-    const isOutlineTabResolved = isOutlineTab && proctoringPanelStatus === 'loaded';
+    // Outline tab: fetch tours once home tab data is loaded. (Upstream waits for proctoring panel;
+    // Robbo removed that panel from OutlineTab, so proctoringPanelStatus would never resolve.)
+    const isOutlineTabResolved = isOutlineTab && courseStatus === LOADED;
     const userIsAuthenticated = !!username;
 
     // Tours currently only exist on the Outline Tab and within Courseware, so we'll avoid
@@ -57,7 +60,7 @@ const ProductTours = ({
     if (userIsAuthenticated && (isCoursewareTab || isOutlineTabResolved)) {
       dispatch(fetchTourData(username));
     }
-  }, [proctoringPanelStatus]);
+  }, [courseStatus, activeTab]);
 
   useEffect(() => {
     if (isCoursewareTab && showCoursewareTour) {

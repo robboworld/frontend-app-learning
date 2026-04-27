@@ -26,6 +26,7 @@ const CourseTabsNavigation = ({
               {tabs.map(({ url, title, slug }) => (
                 <a
                   key={slug}
+                  id={slug === 'dates' ? 'courseHome-datesTabLink' : undefined}
                   className={classNames('nav-item flex-shrink-0 nav-link', { active: slug === activeTabSlug })}
                   href={url}
                 >

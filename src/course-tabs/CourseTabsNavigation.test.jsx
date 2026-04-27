@@ -70,6 +70,16 @@ describe('Course Tabs Navigation', () => {
     expect(screen.getByRole('link', { name: tabs[1].title })).not.toHaveClass('active');
   });
 
+  it('sets tour anchor id on the dates tab link', () => {
+    const tabs = [
+      { url: 'http://outline', title: 'Course', slug: 'courseware' },
+      { url: 'http://dates', title: 'Dates', slug: 'dates' },
+    ];
+    renderComponent({ tabs, activeTabSlug: 'courseware' });
+
+    expect(screen.getByRole('link', { name: 'Dates' })).toHaveAttribute('id', 'courseHome-datesTabLink');
+  });
+
   it('should NOT render CoursewareSearch if the flag is off', () => {
     renderComponent();
 

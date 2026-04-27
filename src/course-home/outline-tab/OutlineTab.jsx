@@ -5,14 +5,9 @@ import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
-import { CourseOutlineTabNotificationsSlot } from '../../plugin-slots/CourseOutlineTabNotificationsSlot';
 import { AlertList } from '../../generic/user-messages';
 
-import CourseDates from './widgets/CourseDates';
-import CourseHandouts from './widgets/CourseHandouts';
 import StartOrResumeCourseCard from './widgets/StartOrResumeCourseCard';
-import WeeklyLearningGoalCard from './widgets/WeeklyLearningGoalCard';
-import CourseTools from './widgets/CourseTools';
 import { fetchOutlineTab } from '../data';
 import messages from './messages';
 import ShiftDatesAlert from '../suggested-schedule-messaging/ShiftDatesAlert';
@@ -24,16 +19,13 @@ import usePrivateCourseAlert from './alerts/private-course-alert';
 import useScheduledContentAlert from './alerts/scheduled-content-alert';
 import { useModel } from '../../generic/model-store';
 import WelcomeMessage from './widgets/WelcomeMessage';
-import ProctoringInfoPanel from './widgets/ProctoringInfoPanel';
 import AccountActivationAlert from '../../alerts/logistration-alert/AccountActivationAlert';
 import CourseHomeSectionOutlineSlot from '../../plugin-slots/CourseHomeSectionOutlineSlot';
+import LaunchCourseHomeTourButton from '../../product-tours/newUserCourseHomeTour/LaunchCourseHomeTourButton';
 
 const OutlineTab = () => {
   const intl = useIntl();
-  const {
-    courseId,
-    proctoringPanelStatus,
-  } = useSelector(state => state.courseHome);
+  const { courseId } = useSelector(state => state.courseHome);
 
   const {
     isSelfPaced,
@@ -48,14 +40,9 @@ const OutlineTab = () => {
       courses,
       sections,
     },
-    courseGoals: {
-      selectedGoal,
-      weeklyLearningGoalEnabled,
-    } = {},
     datesWidget: {
       courseDateBlocks,
     },
-    enableProctoredExams,
   } = useModel('outline', courseId);
 
   const [expandAll, setExpandAll] = useState(false);
@@ -133,7 +120,7 @@ const OutlineTab = () => {
             }}
           />
         </div>
-        <div className="col col-12 col-md-8">
+        <div className="col-12">
           <AlertList
             topic="outline-course-alerts"
             className="mb-3"
@@ -152,6 +139,11 @@ const OutlineTab = () => {
           )}
           <StartOrResumeCourseCard />
           <WelcomeMessage courseId={courseId} nextElementRef={expandButtonRef} />
+          <div className="mb-3 d-flex justify-content-end flex-wrap gap-2">
+            <span id="courseHome-launchTourLink" className="d-inline-flex">
+              <LaunchCourseHomeTourButton />
+            </span>
+          </div>
           {rootCourseId && (
             <>
               <div id="expand-button-row" className="row w-100 m-0 mb-3 justify-content-end">
@@ -169,23 +161,6 @@ const OutlineTab = () => {
             </>
           )}
         </div>
-        {rootCourseId && (
-          <div className="col col-12 col-md-4">
-            <ProctoringInfoPanel />
-            { /** Defer showing the goal widget until the ProctoringInfoPanel has resolved or has been determined as
-             disabled to avoid components bouncing around too much as screen is rendered */ }
-            {(!enableProctoredExams || proctoringPanelStatus === 'loaded') && weeklyLearningGoalEnabled && (
-              <WeeklyLearningGoalCard
-                daysPerWeek={selectedGoal && 'daysPerWeek' in selectedGoal ? selectedGoal.daysPerWeek : null}
-                subscribedToReminders={selectedGoal && 'subscribedToReminders' in selectedGoal ? selectedGoal.subscribedToReminders : false}
-              />
-            )}
-            <CourseTools />
-            <CourseOutlineTabNotificationsSlot courseId={courseId} />
-            <CourseDates />
-            <CourseHandouts />
-          </div>
-        )}
       </div>
     </>
   );

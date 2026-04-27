@@ -458,6 +458,31 @@ $robbo-course-tab-accent-strong: #007a3d;
 $robbo-course-outline-brand-btn-bg: #007a3d;
 $robbo-course-outline-brand-btn-hover: #006233;
 
+// Shared: outline “primary” controls styled as Robbo green (not Paragon default blue).
+@mixin robbo-btn-outline-primary-brand {
+  color: $robbo-course-outline-brand-btn-bg;
+  border-color: $robbo-course-outline-brand-btn-bg;
+
+  &:visited {
+    color: $robbo-course-outline-brand-btn-bg;
+    border-color: $robbo-course-outline-brand-btn-bg;
+  }
+
+  &:hover,
+  &:active {
+    color: #fff;
+    background-color: $robbo-course-outline-brand-btn-bg;
+    border-color: $robbo-course-outline-brand-btn-bg;
+  }
+
+  &:focus {
+    color: #fff;
+    background-color: $robbo-course-outline-brand-btn-bg;
+    border-color: $robbo-course-outline-brand-btn-bg;
+    box-shadow: 0 0 0 0.2rem rgba($robbo-course-outline-brand-btn-bg, 0.35);
+  }
+}
+
 .course-outline-tab .raised-card .btn-brand {
   background-color: $robbo-course-outline-brand-btn-bg;
   border-color: $robbo-course-outline-brand-btn-bg;
@@ -479,6 +504,37 @@ $robbo-course-outline-brand-btn-hover: #006233;
     border-color: $robbo-course-outline-brand-btn-bg;
     color: #fff;
     box-shadow: 0 0 0 0.2rem rgba($robbo-course-outline-brand-btn-bg, 0.35);
+  }
+}
+
+// «Развернуть все / Свернуть все»: тот же зелёный.
+.course-outline-tab #expand-button-row .btn-outline-primary {
+  @include robbo-btn-outline-primary-brand;
+}
+
+// Нижняя / верхняя навигация по юнитам — «Следующий» (Paragon Button as React Router Link → <a>).
+.unit-navigation a.next-button.btn-outline-primary,
+.top-unit-navigation a.next-button.btn-outline-primary {
+  @include robbo-btn-outline-primary-brand;
+}
+
+.course-outline-tab #courseHome-outline .btn-icon-primary {
+  color: $robbo-course-outline-brand-btn-bg;
+
+  &.hover,
+  &:hover,
+  &.active,
+  &:active {
+    background-color: $robbo-course-outline-brand-btn-bg;
+    color: #fff;
+  }
+
+  &.focus,
+  &:focus {
+    outline: 2px transparent;
+    background-color: transparent;
+    color: $robbo-course-outline-brand-btn-bg;
+    box-shadow: inset 0 0 0 $btn-focus-width $robbo-course-outline-brand-btn-bg;
   }
 }
 
@@ -538,6 +594,7 @@ $robbo-course-outline-brand-btn-hover: #006233;
 @import "course-home/progress-tab/grades/course-grade/GradeBar.scss";
 @import "courseware/course/course-exit/CourseRecommendations";
 @import "product-tours/newUserCourseHomeTour/NewUserCourseHomeTourModal.scss";
+@import "product-tours/ProductTourCheckpoint.scss";
 @import "course-home/courseware-search/courseware-search.scss";
 @import "course-tabs/course-tabs-navigation.scss";
 @import "courseware/course/sidebar/common/SidebarBase.scss";

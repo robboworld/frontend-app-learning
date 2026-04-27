@@ -6,6 +6,7 @@ import { getConfig } from '@edx/frontend-platform';
 import { useToggle } from '@openedx/paragon';
 
 import { CourseTabsNavigation } from '../course-tabs';
+import { filterNavigationTabs } from '../course-tabs/filterNavigationTabs';
 import { useModel } from '../generic/model-store';
 import { AlertList } from '../generic/user-messages';
 import StreakModal from '../shared/streak-celebration';
@@ -80,7 +81,11 @@ const LoadedTabPage = ({
             ...logistrationAlert,
           }}
         />
-        <CourseTabsNavigation tabs={tabs} className="mb-3" activeTabSlug={activeTabSlug} />
+        <CourseTabsNavigation
+          tabs={filterNavigationTabs(tabs)}
+          className="mb-3"
+          activeTabSlug={activeTabSlug}
+        />
         <div id="main-content" className="container-xl">
           {children}
         </div>
