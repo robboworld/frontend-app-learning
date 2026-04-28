@@ -1,3 +1,34 @@
+// Dark green CTA ("Начать тур"); same hue family as ProductTourCheckpoint.scss.
+$robbo-new-user-tour-cta: #0d4f2d;
+$robbo-new-user-tour-cta-hover: #083b22;
+
+.new-user-tour-dialog .pgn__modal-footer .btn.btn-brand {
+  background-color: $robbo-new-user-tour-cta;
+  border-color: $robbo-new-user-tour-cta;
+  color: #fff;
+
+  &:hover,
+  &:active {
+    background-color: $robbo-new-user-tour-cta-hover;
+    border-color: $robbo-new-user-tour-cta-hover;
+    color: #fff;
+  }
+
+  &:focus {
+    background-color: $robbo-new-user-tour-cta;
+    border-color: $robbo-new-user-tour-cta;
+    color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba($robbo-new-user-tour-cta, 0.38);
+  }
+
+  &:disabled,
+  &.disabled {
+    background-color: $robbo-new-user-tour-cta;
+    border-color: $robbo-new-user-tour-cta;
+    opacity: 0.65;
+  }
+}
+
 [dir="rtl"] .new-user-tour-dialog .pgn__modal-hero .pgn__modal-hero-bg {
     transform: scaleX(-1);
 }

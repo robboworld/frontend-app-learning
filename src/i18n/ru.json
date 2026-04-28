@@ -468,7 +468,7 @@
   "tours.datesCheckpoint.title": "Будьте в курсе ключевых дат",
   "tours.existingUserTour.launchTourCheckpoint.body": "Недавно мы добавили в курс несколько новых функций. Хотите помочь осмотреться? Совершите экскурсию, чтобы узнать больше.",
   "tours.newUserModal.body": "Давайте совершим краткую экскурсию по {siteName}, чтобы вы могли получить максимальную отдачу от курса.",
-  "tours.newUserModal.title": "{welcome} {siteName} конечно!",
+  "tours.newUserModal.title": "{welcome} {siteName} курс!",
   "tours.newUserModal.title.welcome": "Добро пожаловать в ваш",
   "tours.outlineCheckpoint.body": "Вы можете изучить разделы курса, используя схему ниже.",
   "tours.outlineCheckpoint.title": "Пройдите курс!",
