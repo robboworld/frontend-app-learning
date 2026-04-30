@@ -19,9 +19,19 @@ export function isTeamsCourseTab(tab) {
   }
 }
 
+/** Progress / Dates tabs — скрываем из верхней навигации на каждой странице курса (урок, домашняя и т.д.). */
+export function isProgressOrDatesCourseTab(tab) {
+  if (!tab) {
+    return false;
+  }
+  return tab.slug === 'progress' || tab.slug === 'dates';
+}
+
 export function filterNavigationTabs(tabs) {
   if (!tabs?.length) {
     return tabs || [];
   }
-  return tabs.filter((tab) => !isTeamsCourseTab(tab));
+  return tabs.filter(
+    (tab) => !isTeamsCourseTab(tab) && !isProgressOrDatesCourseTab(tab),
+  );
 }
