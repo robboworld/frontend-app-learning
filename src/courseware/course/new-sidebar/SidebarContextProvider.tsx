@@ -1,3 +1,5 @@
+/** Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */
+
 import React, {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
@@ -26,7 +28,9 @@ const SidebarProvider: React.FC<Props> = ({
   const { verifiedMode } = useModel('courseHomeMeta', courseId);
   const topic = useModel('discussionTopics', unitId);
   const windowWidth = useWindowSize().width ?? window.innerWidth;
-  const shouldDisplayFullScreen = windowWidth < breakpoints.large.minWidth;
+  // Match legacy SidebarContextProvider (< xl): fullscreen trays below 1200px. Using `large` (992px)
+  // kept course outline / sidebars in-flow beside `.sequence.w-100` and overflowed horizontally.
+  const shouldDisplayFullScreen = windowWidth < breakpoints.extraLarge.minWidth;
   const shouldDisplaySidebarOpen = windowWidth > breakpoints.medium.minWidth;
   const query = new URLSearchParams(window.location.search);
   const isInitiallySidebarOpen = shouldDisplaySidebarOpen || query.get('sidebar') === 'true';

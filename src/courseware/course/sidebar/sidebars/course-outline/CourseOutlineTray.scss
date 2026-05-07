@@ -1,9 +1,35 @@
+// Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root.
+
+// Class toggled from `useCourseOutlineTrayScrollLock` — name must match `COURSE_OUTLINE_TRAY_SCROLL_LOCK_CLASS`.
+body._course-outline-tray-no-scroll {
+    overflow: hidden;
+}
+
 .outline-sidebar-wrapper {
     width: 32.125rem;
     max-width: 100%;
     overflow: auto;
+    // In-flow sidebar only: must establish CB for `.outline-sidebar` XL positioning.
+    // When `.fixed-top` is also set (fullscreen mobile), Bootstrap uses `position: fixed` without `!important`,
+    // and this rule compiled after utilities would otherwise win and trap the overlay in layout → html overflow-x.
     position: relative;
     flex-shrink: 0;
+
+    // Height from `top` (inline — below #courseTabsNavigation) through bottom of viewport; not `100vh`.
+    &.fixed-top {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: $zindex-fixed;
+        height: auto !important;
+        max-height: none !important;
+        // Scroll only inside the tray; avoid chaining to the (locked) page behind it.
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
 }
 
 .outline-sidebar {

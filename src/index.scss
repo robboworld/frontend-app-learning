@@ -105,11 +105,26 @@ $robbo-course-tab-accent-strong: #007a3d;
 
 .sequence-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-grow: 1;
+  // Default align-items `stretch`: desktop outline `.outline-sidebar` is `absolute` inside
+  // `.outline-sidebar-wrapper` — with `flex-start` the wrapper had no in-flow height and collapsed.
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin-bottom: 4rem;
   margin-right: auto;
   margin-left: auto;
+  box-sizing: border-box;
+
+  // Fixed-width outline / notification rails + `.w-100` on the sequence summed past the viewport when
+  // sidebars stayed in-flow (e.g. 992–1199px before fullscreen). Let the main column shrink.
+  > .sequence {
+    flex: 1 1 0%;
+    min-width: 0;
+    width: auto;
+    max-width: 100%;
+  }
 }
 
 .sequence {

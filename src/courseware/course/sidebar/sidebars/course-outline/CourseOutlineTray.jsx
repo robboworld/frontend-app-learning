@@ -15,6 +15,8 @@ import SidebarSequence from './components/SidebarSequence';
 import { ID } from './constants';
 import { useCourseOutlineSidebar } from './hooks';
 import messages from './messages';
+import { useCourseOutlineOverlayTopPx } from './useCourseOutlineOverlayTopPx';
+import { useCourseOutlineTrayScrollLock } from './useCourseOutlineTrayScrollLock';
 
 const CourseOutlineTray = () => {
   const intl = useIntl();
@@ -34,6 +36,15 @@ const CourseOutlineTray = () => {
     sections,
     sequences,
   } = useCourseOutlineSidebar();
+
+  const outlineOverlayTopPx = useCourseOutlineOverlayTopPx();
+
+  useCourseOutlineTrayScrollLock(
+    isEnabledSidebar
+    && !isActiveEntranceExam
+    && currentSidebar === ID
+    && shouldDisplayFullScreen,
+  );
 
   const {
     sectionId: activeSectionId,
@@ -82,12 +93,17 @@ const CourseOutlineTray = () => {
     return null;
   }
 
+  const fullScreenTrayStyle = shouldDisplayFullScreen
+    ? { top: `${outlineOverlayTopPx}px` }
+    : undefined;
+
   if (courseOutlineStatus === LOADING) {
     return (
       <div className={classNames('outline-sidebar-wrapper', {
         'flex-shrink-0 mr-4 h-auto': !shouldDisplayFullScreen,
-        'bg-white m-0 fixed-top w-100 vh-100': shouldDisplayFullScreen,
+        'bg-white m-0 fixed-top w-100': shouldDisplayFullScreen,
       })}
+        style={fullScreenTrayStyle}
       >
         <section className="outline-sidebar w-100">
           {sidebarHeading}
@@ -102,8 +118,9 @@ const CourseOutlineTray = () => {
   return (
     <div className={classNames('outline-sidebar-wrapper', {
       'flex-shrink-0 mr-4 h-auto': !shouldDisplayFullScreen,
-      'bg-white m-0 fixed-top w-100 vh-100': shouldDisplayFullScreen,
+      'bg-white m-0 fixed-top w-100': shouldDisplayFullScreen,
     })}
+      style={fullScreenTrayStyle}
     >
       <section className="outline-sidebar w-100">
         {sidebarHeading}
