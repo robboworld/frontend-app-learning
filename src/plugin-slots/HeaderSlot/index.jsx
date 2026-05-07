@@ -20,6 +20,7 @@ const HeaderSlot = ({
     }}
   >
     <Header
+      collapseNavIntoUserMenuOnNarrow
       showUserDropdown={showUserDropdown}
     />
   </PluginSlot>

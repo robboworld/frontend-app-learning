@@ -16,7 +16,6 @@ import { useSequenceBannerTextAlert, useSequenceEntranceExamAlert } from '@src/a
 import SequenceContainerSlot from '../../../plugin-slots/SequenceContainerSlot';
 
 import { getCoursewareOutlineSidebarSettings } from '../../data/selectors';
-import CourseLicense from '../course-license';
 import { NotificationsDiscussionsSidebarSlot } from '../../../plugin-slots/NotificationsDiscussionsSidebarSlot';
 import messages from './messages';
 import HiddenAfterDue from './hidden-after-due';
@@ -36,7 +35,6 @@ const Sequence = ({
   const intl = useIntl();
   const {
     canAccessProctoredExams,
-    license,
   } = useModel('coursewareMeta', courseId);
   const {
     isStaff,
@@ -161,7 +159,7 @@ const Sequence = ({
 
   const defaultContent = (
     <>
-      <div className="sequence-container d-inline-flex flex-row w-100">
+      <div className="sequence-container w-100">
         <CourseOutlineSidebarTriggerSlot
           sectionId={section ? section.id : null}
           sequenceId={sequenceId}
@@ -169,7 +167,7 @@ const Sequence = ({
           unitId={unitId}
         />
         <CourseOutlineSidebarSlot />
-        <div className="sequence w-100">
+        <div className="sequence">
           {!isEnabledOutlineSidebar && (
             <div className="sequence-navigation-container">
               <SequenceNavigation
@@ -227,7 +225,6 @@ const Sequence = ({
         >
           {defaultContent}
         </SequenceExamWrapper>
-        <CourseLicense license={license || undefined} />
       </div>
     );
   }
