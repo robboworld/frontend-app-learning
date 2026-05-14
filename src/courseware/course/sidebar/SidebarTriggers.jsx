@@ -1,3 +1,5 @@
+/** Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */
+
 import { useContext } from 'react';
 import classNames from 'classnames';
 import { breakpoints, useWindowSize } from '@openedx/paragon';
@@ -13,7 +15,7 @@ const SidebarTriggers = () => {
   const isMobileView = useWindowSize().width < breakpoints.small.minWidth;
 
   return (
-    <div className="d-flex ml-auto">
+    <div className="d-flex">
       {SIDEBAR_ORDER.map((sidebarId) => {
         const { Trigger } = SIDEBARS[sidebarId];
         const isActive = sidebarId === currentSidebar;

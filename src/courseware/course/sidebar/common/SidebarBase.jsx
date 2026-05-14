@@ -7,6 +7,8 @@ import { useCallback, useContext } from 'react';
 import { useEventListener } from '@src/generic/hooks';
 import messages from '../../messages';
 import SidebarContext from '../SidebarContext';
+import { useCourseOutlineOverlayTopPx } from '../sidebars/course-outline/useCourseOutlineOverlayTopPx';
+import { useCourseOutlineTrayScrollLock } from '../sidebars/course-outline/useCourseOutlineTrayScrollLock';
 
 const SidebarBase = ({
   title,
@@ -23,6 +25,9 @@ const SidebarBase = ({
     shouldDisplayFullScreen,
     currentSidebar,
   } = useContext(SidebarContext);
+  const overlayTopPx = useCourseOutlineOverlayTopPx();
+  const scrollLockEnabled = shouldDisplayFullScreen && currentSidebar === sidebarId;
+  useCourseOutlineTrayScrollLock(scrollLockEnabled);
 
   const receiveMessage = useCallback(({ data }) => {
     const { type } = data;
@@ -37,12 +42,16 @@ const SidebarBase = ({
   return (
     <section
       className={classNames('ml-0 border border-light-400 rounded-sm h-auto align-top zindex-0', {
-        'bg-white m-0 border-0 fixed-top vh-100 rounded-0': shouldDisplayFullScreen,
+        'bg-white m-0 border-0 fixed-top rounded-0 robbo-learning-fullscreen-sidebar-tray': shouldDisplayFullScreen,
         'align-self-start': !shouldDisplayFullScreen,
         'd-none': currentSidebar !== sidebarId,
       }, className)}
       data-testid={`sidebar-${sidebarId}`}
-      style={{ width: shouldDisplayFullScreen ? '100%' : width }}
+      style={
+        shouldDisplayFullScreen
+          ? { width: '100%', top: `${overlayTopPx}px` }
+          : { width }
+      }
       aria-label={ariaLabel}
       id="course-sidebar"
     >

@@ -7,7 +7,7 @@ const SidebarTriggers = () => {
   const { toggleSidebar } = useContext(SidebarContext);
 
   return (
-    <div className="d-flex ml-auto">
+    <div className="d-flex">
       {SIDEBAR_ORDER.map((sidebarId) => {
         const { Trigger } = SIDEBARS[sidebarId];
         return (

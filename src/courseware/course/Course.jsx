@@ -18,8 +18,14 @@ import ContentTools from './content-tools';
 import Sequence from './sequence';
 import { CourseOutlineMobileSidebarTriggerSlot } from '../../plugin-slots/CourseOutlineMobileSidebarTriggerSlot';
 import { CourseBreadcrumbsSlot } from '../../plugin-slots/CourseBreadcrumbsSlot';
+import {
+  CoursewareMobileUnitNavPortalProvider,
+  useCoursewareMobileUnitNavPortal,
+} from '../CoursewareMobileUnitNavPortalContext';
 
-const Course = ({
+/** Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */
+
+const CourseContent = ({
   courseId,
   sequenceId,
   unitId,
@@ -77,6 +83,7 @@ const Course = ({
   }, [sequenceId]);
 
   const SidebarProviderComponent = isNewDiscussionSidebarViewEnabled ? NewSidebarProvider : SidebarProvider;
+  const { setPortalTarget } = useCoursewareMobileUnitNavPortal();
 
   return (
     <SidebarProviderComponent courseId={courseId} unitId={unitId}>
@@ -107,8 +114,19 @@ const Course = ({
             />
           </>
         )}
-        <div className="w-100 d-flex align-items-center">
-          <CourseOutlineMobileSidebarTriggerSlot />
+        <div className="w-100 d-flex d-xl-none align-items-center justify-content-between gap-2 courseware-mobile-sequence-toolbar">
+          <div className="courseware-toolbar-notifications flex-shrink-0">
+            <NotificationsDiscussionsSidebarTriggerSlot courseId={courseId} />
+          </div>
+          <div
+            ref={setPortalTarget}
+            className="courseware-mobile-unit-nav-portal-target flex-grow-1 d-flex justify-content-center align-items-center min-w-0"
+          />
+          <div className="flex-shrink-0">
+            <CourseOutlineMobileSidebarTriggerSlot />
+          </div>
+        </div>
+        <div className="w-100 d-none d-xl-flex align-items-center justify-content-end">
           <NotificationsDiscussionsSidebarTriggerSlot courseId={courseId} />
         </div>
       </div>
@@ -138,7 +156,7 @@ const Course = ({
   );
 };
 
-Course.propTypes = {
+CourseContent.propTypes = {
   courseId: PropTypes.string,
   sequenceId: PropTypes.string,
   unitId: PropTypes.string,
@@ -148,11 +166,17 @@ Course.propTypes = {
   windowWidth: PropTypes.number.isRequired,
 };
 
-Course.defaultProps = {
+CourseContent.defaultProps = {
   courseId: null,
   sequenceId: null,
   unitId: null,
 };
+
+const Course = props => (
+  <CoursewareMobileUnitNavPortalProvider>
+    <CourseContent {...props} />
+  </CoursewareMobileUnitNavPortalProvider>
+);
 
 const CourseWrapper = (props) => {
   // useWindowSize initially returns an undefined width intentionally at first.
@@ -167,5 +191,8 @@ const CourseWrapper = (props) => {
 
   return <Course {...props} windowWidth={windowWidth} />;
 };
+
+Course.propTypes = CourseContent.propTypes;
+Course.defaultProps = CourseContent.defaultProps;
 
 export default CourseWrapper;

@@ -1,6 +1,7 @@
 // Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root.
 
 // Class toggled from `useCourseOutlineTrayScrollLock` — name must match `COURSE_OUTLINE_TRAY_SCROLL_LOCK_CLASS`.
+// Also used for fullscreen discussions / notifications trays (`SidebarBase`).
 body._course-outline-tray-no-scroll {
     overflow: hidden;
 }

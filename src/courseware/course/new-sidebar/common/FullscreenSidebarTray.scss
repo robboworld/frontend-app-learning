@@ -1,0 +1,20 @@
+// Copyright (C) 2026 Robbo <https://robbo.ru>
+// SPDX-License-Identifier: AGPL-3.0-only
+// Part of the Robbo Open edX MFE overrides. See NOTICE at repository root.
+
+// Fullscreen discussion / notification tray: `top` is set inline (below Robbo header + optional tabs).
+// Avoid `vh-100` here — with `top > 0`, viewport height must run to `bottom: 0`, not `100vh`.
+.robbo-learning-fullscreen-sidebar-tray {
+  &.fixed-top {
+    position: fixed !important;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $zindex-fixed;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}

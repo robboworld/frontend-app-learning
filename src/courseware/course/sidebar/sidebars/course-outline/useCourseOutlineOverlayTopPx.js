@@ -10,23 +10,25 @@ const DEBOUNCE_MS = 100;
 /** Matches courseware search positioning — tabs bar anchor in LoadedTabPage. */
 const COURSE_TABS_NAV_ID = 'courseTabsNavigation';
 
+/** Robbo shell header (`robbo-layout/index.scss`); courseware pages often have no `#courseTabsNavigation`. */
+const ROBBO_HEADER_SELECTOR = '.robbo-layout-header';
+
 /**
- * Viewport offset (px) for the top edge of the fullscreen course-outline tray (`position: fixed`),
- * so it sits below the course tabs row instead of covering the header and tabs.
+ * Viewport offset (px) for the top edge of fullscreen fixed trays (`position: fixed`),
+ * so they sit below the Robbo header and (when present) the course tabs row.
  */
 export function useCourseOutlineOverlayTopPx() {
   const [topPx, setTopPx] = useState(0);
 
   useLayoutEffect(() => {
     const recalculate = () => {
-      const el = document.getElementById(COURSE_TABS_NAV_ID);
-      if (!el) {
-        setTopPx(0);
-        return;
-      }
-      const { bottom } = el.getBoundingClientRect();
-      // Tabs scrolled above the viewport: fall back to full viewport from top.
-      setTopPx(bottom > 0 ? Math.floor(bottom) : 0);
+      const tabsEl = document.getElementById(COURSE_TABS_NAV_ID);
+      const headerEl = document.querySelector(ROBBO_HEADER_SELECTOR);
+      const tabsBottom = tabsEl ? tabsEl.getBoundingClientRect().bottom : 0;
+      const headerBottom = headerEl ? headerEl.getBoundingClientRect().bottom : 0;
+      const chromeBottom = Math.max(tabsBottom, headerBottom);
+      // Tabs scrolled above the viewport: still anchor below the header when it is visible.
+      setTopPx(chromeBottom > 0 ? Math.floor(chromeBottom) : 0);
     };
 
     /** Scroll fires very often — debouncing made `top` lag behind the scrolling page (sluggish overlay). */
@@ -47,12 +49,14 @@ export function useCourseOutlineOverlayTopPx() {
     window.addEventListener('resize', debouncedResize);
     window.addEventListener('scroll', scheduleOnScroll, { capture: true, passive: true });
 
-    const el = document.getElementById(COURSE_TABS_NAV_ID);
-    const ro = typeof ResizeObserver !== 'undefined' && el
-      ? new ResizeObserver(() => { recalculate(); })
-      : null;
-    if (ro && el) {
-      ro.observe(el);
+    const tabsEl = document.getElementById(COURSE_TABS_NAV_ID);
+    const headerEl = document.querySelector(ROBBO_HEADER_SELECTOR);
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => { recalculate(); }) : null;
+    if (ro && tabsEl) {
+      ro.observe(tabsEl);
+    }
+    if (ro && headerEl) {
+      ro.observe(headerEl);
     }
 
     recalculate();

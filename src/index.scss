@@ -428,6 +428,21 @@ $robbo-course-tab-accent-strong: #007a3d;
   }
 }
 
+// Unit prev/next in courseware toolbar (< xl): between notifications and outline, centered.
+.courseware-mobile-unit-nav-portal-target {
+  min-width: 0;
+
+  .top-unit-navigation {
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.courseware-mobile-sequence-toolbar {
+  min-width: 0;
+}
+
 // This class forces any modals using 'modal-lti' as their dialogClassName to take up the whole
 // window (retaining padding around the edge).  Bootstrap modals don't have a full-screen
 // size like this.  Because of the hack below around react-focus-on's div, it would be better long-term to pull this into Paragon and perhaps call it "modal-full" or something like that.
@@ -616,3 +631,4 @@ $robbo-course-outline-brand-btn-hover: #006233;
 @import "course-tabs/course-tabs-navigation.scss";
 @import "courseware/course/sidebar/common/SidebarBase.scss";
 @import "courseware/course/sidebar/sidebars/course-outline/CourseOutlineTray.scss";
+@import "courseware/course/new-sidebar/common/FullscreenSidebarTray.scss";

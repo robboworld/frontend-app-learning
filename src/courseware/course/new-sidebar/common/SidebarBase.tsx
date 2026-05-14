@@ -8,6 +8,8 @@ import { ArrowBackIos, Close } from '@openedx/paragon/icons';
 
 import { useEventListener } from '../../../../generic/hooks';
 import { WIDGETS } from '../../../../constants';
+import { useCourseOutlineOverlayTopPx } from '../../sidebar/sidebars/course-outline/useCourseOutlineOverlayTopPx';
+import { useCourseOutlineTrayScrollLock } from '../../sidebar/sidebars/course-outline/useCourseOutlineTrayScrollLock';
 import messages from '../messages';
 import SidebarContext, { type SidebarId } from '../SidebarContext';
 
@@ -40,13 +42,16 @@ const SidebarBase: React.FC<Props> = ({
     shouldDisplayFullScreen,
     currentSidebar,
   } = useContext(SidebarContext);
+  const overlayTopPx = useCourseOutlineOverlayTopPx();
+  const scrollLockEnabled = shouldDisplayFullScreen && currentSidebar === sidebarId;
+  useCourseOutlineTrayScrollLock(scrollLockEnabled);
 
   const receiveMessage = useCallback(({ data }) => {
     const { type } = data;
     if (type === 'learning.events.sidebar.close') {
       toggleSidebar(currentSidebar, WIDGETS.DISCUSSIONS);
     }
-  }, [toggleSidebar]);
+  }, [toggleSidebar, currentSidebar]);
 
   useEventListener('message', receiveMessage);
 
@@ -54,12 +59,16 @@ const SidebarBase: React.FC<Props> = ({
     <section
       className={classNames('ml-0 ml-lg-4 h-auto align-top zindex-0', {
         'min-vh-100': !shouldDisplayFullScreen && allowFullHeight,
-        'bg-white m-0 border-0 fixed-top vh-100 rounded-0': shouldDisplayFullScreen,
+        'bg-white m-0 border-0 fixed-top rounded-0 robbo-learning-fullscreen-sidebar-tray': shouldDisplayFullScreen,
         'd-none': currentSidebar !== sidebarId,
         'border border-light-400 rounded-sm': showBorder,
       }, className)}
       data-testid={`sidebar-${sidebarId}`}
-      style={{ width: shouldDisplayFullScreen ? '100%' : width }}
+      style={
+        shouldDisplayFullScreen
+          ? { width: '100%', top: `${overlayTopPx}px` }
+          : { width }
+      }
       aria-label={ariaLabel}
     >
       {shouldDisplayFullScreen
