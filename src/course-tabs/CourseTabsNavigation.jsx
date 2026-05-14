@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import classNames from 'classnames';
 
+import { getLocalizedCourseTabTitle } from './courseTabTitleMessages';
 import messages from './messages';
 import Tabs from '../generic/tabs/Tabs';
 import { CoursewareSearch, CoursewareSearchToggle } from '../course-home/courseware-search';
@@ -30,7 +31,7 @@ const CourseTabsNavigation = ({
                   className={classNames('nav-item flex-shrink-0 nav-link', { active: slug === activeTabSlug })}
                   href={url}
                 >
-                  {title}
+                  {getLocalizedCourseTabTitle(intl.formatMessage, slug, title)}
                 </a>
               ))}
             </Tabs>

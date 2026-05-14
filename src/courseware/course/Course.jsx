@@ -24,7 +24,6 @@ import {
 } from '../CoursewareMobileUnitNavPortalContext';
 
 /** Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */
-
 const CourseContent = ({
   courseId,
   sequenceId,
