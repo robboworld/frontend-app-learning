@@ -1,5 +1,13 @@
+// Copyright (C) 2026 Robbo <https://robbo.ru>
+// SPDX-License-Identifier: AGPL-3.0-only
+// Part of the Robbo Open edX MFE overrides. See NOTICE at repository root.
+
+// Below `robbo-layout-header` ($robbo-mfe-header-stacking-z), above fullscreen outline tray (`$zindex-fixed`).
+$robbo-course-tabs-stacking-z: $zindex-fixed + 5;
+
 .course-tabs-navigation {
   position: relative;
+  z-index: $robbo-course-tabs-stacking-z;
   border-bottom: solid 1px #eaeaea;
 
   .nav a,

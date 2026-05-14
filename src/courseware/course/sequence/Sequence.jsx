@@ -193,7 +193,7 @@ const Sequence = ({
             </div>
           )}
 
-          <div className="unit-container flex-grow-1 pt-4">
+          <div className="unit-container pt-4">
             <SequenceContent
               courseId={courseId}
               gated={gated}

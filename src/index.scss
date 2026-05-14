@@ -33,8 +33,10 @@
     min-height: 0;
   }
 
+  // Do not grow <main> to fill the viewport: short courseware pages would show a tall empty band
+  // above the footer. Footer stays at the bottom via `.wrapper.wrapper-footer { margin-top: auto }`.
   main {
-    flex: 1 0 auto;
+    flex: 0 1 auto;
   }
 
   header {
@@ -112,7 +114,7 @@ $robbo-course-tab-accent-strong: #007a3d;
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  margin-bottom: 4rem;
+  margin-bottom: $spacer * 2;
   margin-right: auto;
   margin-left: auto;
   box-sizing: border-box;

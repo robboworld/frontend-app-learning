@@ -24,10 +24,14 @@ $robbo-mfe-user-menu-item-hover-bg-desktop: #f0fdf4;
 $robbo-mfe-user-menu-item-hover-color-desktop: #111827;
 $robbo-mfe-user-menu-item-hover-bg-collapsed: #eaf8ef;
 $robbo-mfe-user-menu-item-hover-color-collapsed: #111;
+// Stacking: fullscreen course outline tray uses Bootstrap `$zindex-fixed` (1030); modal backdrop is 1040.
+// Keep the header strictly between fixed UI and modals so user dropdown overlaps outline / main content.
+$robbo-mfe-header-stacking-z: 1039;
+$robbo-mfe-user-dropdown-stacking-z: 1; // within header stacking context
 
 .robbo-layout-header {
   position: relative;
-  z-index: 20;
+  z-index: $robbo-mfe-header-stacking-z;
   min-height: $robbo-mfe-header-bar-min-h;
   background: #00b140;
   color: #fff;
@@ -284,6 +288,7 @@ $y-hamburger-middle: ($robbo-mfe-profile-hamburger-box-height - $robbo-mfe-profi
 
 .robbo-layout-user-menu__dropdown {
   position: absolute;
+  z-index: $robbo-mfe-user-dropdown-stacking-z;
   right: 0;
   left: auto;
   top: calc(100% + 10px);
@@ -402,7 +407,7 @@ $y-hamburger-middle: ($robbo-mfe-profile-hamburger-box-height - $robbo-mfe-profi
 
 .robbo-layout-page>main,
 #root>main {
-  flex: 1 0 auto;
+  flex: 0 1 auto;
 }
 
 .robbo-site-footer {
