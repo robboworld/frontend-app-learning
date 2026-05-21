@@ -561,8 +561,34 @@ $robbo-course-outline-brand-btn-hover: #006233;
   }
 }
 
+// «Стартовый тур» — зелёная текстовая ссылка (не outline-кнопка).
+.course-outline-tab #courseHome-launchTourLink .btn-link {
+  color: $robbo-course-outline-brand-btn-bg;
+  text-decoration: none;
+
+  &:visited {
+    color: $robbo-course-outline-brand-btn-bg;
+  }
+
+  &:hover:not(:disabled):not(.disabled) {
+    color: $robbo-course-outline-brand-btn-hover;
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    color: $robbo-course-outline-brand-btn-bg;
+    box-shadow: 0 0 0 0.2rem rgba($robbo-course-outline-brand-btn-bg, 0.35);
+  }
+
+  .pgn__icon {
+    color: currentColor;
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
+
 // «Развернуть все / Свернуть все»: тот же зелёный.
-.course-outline-tab #expand-button-row .btn-outline-primary {
+.course-outline-tab #course-outline-actions-row .btn-outline-primary {
   @include robbo-btn-outline-primary-brand;
 }
 
@@ -633,6 +659,8 @@ $robbo-course-outline-brand-btn-hover: #006233;
     }
   }
 }
+
+@import "course-home/course-home-robbo";
 
 // Import component-specific sass files
 @import "courseware/course/celebration/CelebrationModal.scss";

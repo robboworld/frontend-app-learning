@@ -43,8 +43,8 @@ const DatesTab = () => {
   };
 
   return (
-    <>
-      <div role="heading" aria-level="1" className="h2 my-3">
+    <div className="course-dates-tab">
+      <div role="heading" aria-level="1" className="h2 my-3 course-dates-tab__title">
         {intl.formatMessage(messages.title)}
       </div>
       {isSelfPaced && hasDeadlines && (
@@ -56,7 +56,7 @@ const DatesTab = () => {
         </>
       )}
       <Timeline />
-    </>
+    </div>
   );
 };
 

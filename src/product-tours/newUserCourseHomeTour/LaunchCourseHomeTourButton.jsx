@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
@@ -44,12 +45,16 @@ const LaunchCourseHomeTourButton = ({ srOnly }) => {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {toursEnabled && (
-        <Button variant="link" size="inline" className={`p-0 ${srOnly && 'sr-only sr-only-focusable'}`} onClick={handleClick}>
+        <Button
+          variant="link"
+          size="inline"
+          className={classNames('p-0', { 'sr-only sr-only-focusable': srOnly })}
+          onClick={handleClick}
+        >
           {!srOnly && (
             <Icon
               src={Compass}
               className="mr-2"
-              style={{ height: '18px', width: '18px' }}
             />
           )}
           {intl.formatMessage(messages.launchTour)}

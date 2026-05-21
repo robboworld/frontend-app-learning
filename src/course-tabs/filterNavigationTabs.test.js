@@ -1,4 +1,4 @@
-import { filterNavigationTabs, isTeamsCourseTab, isProgressOrDatesCourseTab } from './filterNavigationTabs';
+import { filterNavigationTabs, isTeamsCourseTab } from './filterNavigationTabs';
 
 describe('filterNavigationTabs', () => {
   const tabs = [
@@ -11,23 +11,17 @@ describe('filterNavigationTabs', () => {
 
   it('removes teams tab by slug', () => {
     const out = filterNavigationTabs(tabs);
-    expect(out.map((t) => t.slug)).toEqual(['courseware', 'discussion']);
+    expect(out.map((t) => t.slug)).toEqual(['courseware', 'discussion', 'progress', 'dates']);
   });
 
-  it('removes progress and dates tabs', () => {
+  it('keeps progress and dates tabs', () => {
     const noTeams = tabs.filter((t) => t.slug !== 'teams');
     const out = filterNavigationTabs(noTeams);
-    expect(out.map((t) => t.slug)).toEqual(['courseware', 'discussion']);
+    expect(out.map((t) => t.slug)).toEqual(['courseware', 'discussion', 'progress', 'dates']);
   });
 
   it('isTeamsCourseTab matches LMS teams URL', () => {
     expect(isTeamsCourseTab(tabs[1])).toBe(true);
     expect(isTeamsCourseTab(tabs[0])).toBe(false);
-  });
-
-  it('isProgressOrDatesCourseTab matches slug', () => {
-    expect(isProgressOrDatesCourseTab(tabs[3])).toBe(true);
-    expect(isProgressOrDatesCourseTab(tabs[4])).toBe(true);
-    expect(isProgressOrDatesCourseTab(tabs[0])).toBe(false);
   });
 });

@@ -27,7 +27,9 @@ const ProgressHeader = () => {
   return (
     <div className="row w-100 m-0 mt-3 mb-4">
       <div className="col-12 text-left">
-        <h1>{pageTitle}</h1>
+        <div role="heading" aria-level="1" className="h2 mb-0 course-progress-tab__title">
+          {pageTitle}
+        </div>
         {administrator && studioUrl && (
           <Button variant="outline-primary" size="sm" className="mt-2" href={studioUrl}>
             {intl.formatMessage(messages.studioLink)}

@@ -32,14 +32,40 @@ $robbo-course-tabs-stacking-z: $zindex-fixed + 5;
   }
 
   .nav-menu {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+
+    // Tab overflow is measured against nav-menu width; stretch nav to the full row.
+    .nav-underline-tabs {
+      width: 100%;
+      max-width: 100%;
+    }
   }
 
   .search-toggle {
-    flex-grow: 0;
+    flex: 0 0 auto;
     text-align: right;
     white-space: nowrap;
     margin-bottom: 10px;
+  }
+
+  @media (max-width: 767.98px) {
+    .nav-bar {
+      flex-wrap: nowrap;
+      align-items: stretch;
+    }
+
+    .nav-menu {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .search-toggle {
+      margin-bottom: 0;
+      align-self: center;
+    }
   }
 
 

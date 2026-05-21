@@ -1,3 +1,6 @@
+// Robbo brand green (aligned with grade bar / course-home controls).
+$robbo-donut-chart-text-fill: #007a3d;
+
 .donut rect {
   fill: transparent;
   width: 4px;
@@ -29,7 +32,7 @@
 }
 
 .donut-chart-text {
-  fill: $primary-500;
+  fill: $robbo-donut-chart-text-fill;
   -moz-transform: translateY(0.25em);
   -ms-transform: translateY(0.25em);
   -webkit-transform: translateY(0.25em);

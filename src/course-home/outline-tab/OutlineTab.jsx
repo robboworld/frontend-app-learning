@@ -139,26 +139,29 @@ const OutlineTab = () => {
           )}
           <StartOrResumeCourseCard />
           <WelcomeMessage courseId={courseId} nextElementRef={expandButtonRef} />
-          <div className="mb-3 d-flex justify-content-end flex-wrap gap-2">
+          <div
+            id="course-outline-actions-row"
+            className="mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2 w-100"
+          >
             <span id="courseHome-launchTourLink" className="d-inline-flex">
               <LaunchCourseHomeTourButton />
             </span>
+            {rootCourseId && (
+              <Button
+                ref={expandButtonRef}
+                variant="outline-primary"
+                onClick={() => { setExpandAll(!expandAll); }}
+              >
+                {expandAll ? intl.formatMessage(messages.collapseAll) : intl.formatMessage(messages.expandAll)}
+              </Button>
+            )}
           </div>
           {rootCourseId && (
-            <>
-              <div id="expand-button-row" className="row w-100 m-0 mb-3 justify-content-end">
-                <div className="col-12 col-md-auto p-0">
-                  <Button ref={expandButtonRef} variant="outline-primary" block onClick={() => { setExpandAll(!expandAll); }}>
-                    {expandAll ? intl.formatMessage(messages.collapseAll) : intl.formatMessage(messages.expandAll)}
-                  </Button>
-                </div>
-              </div>
-              <CourseHomeSectionOutlineSlot
-                expandAll={expandAll}
-                sectionIds={courses[rootCourseId].sectionIds}
-                sections={sections}
-              />
-            </>
+            <CourseHomeSectionOutlineSlot
+              expandAll={expandAll}
+              sectionIds={courses[rootCourseId].sectionIds}
+              sections={sections}
+            />
           )}
         </div>
       </div>

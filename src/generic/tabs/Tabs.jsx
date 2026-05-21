@@ -12,7 +12,7 @@ const Tabs = ({ children, className, ...attrs }) => {
     containerElementRef,
     invisibleStyle,
     overflowElementRef,
-  ] = useIndexOfLastVisibleChild();
+  ] = useIndexOfLastVisibleChild(undefined, React.Children.count(children));
 
   const tabChildren = useMemo(() => {
     const childrenArray = React.Children.toArray(children);

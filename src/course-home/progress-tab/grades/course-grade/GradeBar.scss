@@ -1,3 +1,6 @@
+// Robbo brand green (aligned with $robbo-course-outline-brand-btn-bg in index.scss).
+$robbo-grade-bar-passing-fill: #007a3d;
+
 .grade-bar {
   rect {
     height: 6px;
@@ -13,7 +16,7 @@
   }
 
   .grade-bar--passing {
-    fill: $primary-500;
+    fill: $robbo-grade-bar-passing-fill;
   }
 
   .grade-bar--current-passing {
@@ -30,8 +33,10 @@
 }
 
 #minimum-grade-tooltip {
+  background-color: $robbo-grade-bar-passing-fill !important;
+
   .arrow::after {
-    border-bottom-color: $primary-500;
+    border-bottom-color: $robbo-grade-bar-passing-fill;
   }
 }
 

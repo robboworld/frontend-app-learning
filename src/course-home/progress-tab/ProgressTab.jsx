@@ -20,7 +20,7 @@ const ProgressTab = () => {
   }
 
   return (
-    <>
+    <div className="course-progress-tab">
       <ProgressHeader />
       <div className="row w-100 m-0">
         <div className="col-12 p-0">
@@ -30,7 +30,7 @@ const ProgressTab = () => {
           <ProgressTabGradeBreakdownSlot />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
