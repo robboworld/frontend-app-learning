@@ -539,6 +539,28 @@ $robbo-course-outline-brand-btn-hover: #006233;
   }
 }
 
+// Unit title — «Добавить в закладки» (StatefulButton `variant="link"`).
+.robbo-unit-bookmark-btn.btn.btn-link {
+  color: $robbo-course-outline-brand-btn-bg;
+
+  &:visited {
+    color: $robbo-course-outline-brand-btn-bg;
+  }
+
+  &:hover:not(:disabled):not(.disabled) {
+    color: $robbo-course-outline-brand-btn-hover;
+  }
+
+  &:focus-visible {
+    color: $robbo-course-outline-brand-btn-bg;
+    box-shadow: 0 0 0 0.2rem rgba($robbo-course-outline-brand-btn-bg, 0.35);
+  }
+
+  .pgn__icon {
+    color: currentColor;
+  }
+}
+
 // «Развернуть все / Свернуть все»: тот же зелёный.
 .course-outline-tab #expand-button-row .btn-outline-primary {
   @include robbo-btn-outline-primary-brand;

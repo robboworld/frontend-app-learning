@@ -41,7 +41,7 @@ const BookmarkButton = ({
   return (
     <StatefulButton
       variant="link"
-      className={`px-1 ml-n1 btn-sm text-primary-500 ${isProcessing && 'disabled'}`}
+      className={`robbo-unit-bookmark-btn px-1 ml-n1 btn-sm ${isProcessing && 'disabled'}`}
       onClick={toggleBookmark}
       state={state}
       aria-busy={isProcessing}
@@ -53,10 +53,10 @@ const BookmarkButton = ({
         bookmarkedProcessing: hasBookmarkLabel,
       }}
       icons={{
-        default: <Icon src={BookmarkBorder} className="text-primary" />,
-        defaultProcessing: <Icon src={BookmarkBorder} className="text-primary" />,
-        bookmarked: <Icon src={Bookmark} className="text-primary" />,
-        bookmarkedProcessing: <Icon src={Bookmark} className="text-primary" />,
+        default: <Icon src={BookmarkBorder} />,
+        defaultProcessing: <Icon src={BookmarkBorder} />,
+        bookmarked: <Icon src={Bookmark} />,
+        bookmarkedProcessing: <Icon src={Bookmark} />,
       }}
     />
   );
