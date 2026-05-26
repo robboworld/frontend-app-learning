@@ -37,8 +37,9 @@ function getBadgeListAndColor(date, intl, item, items) {
     {
       message: messages.today,
       shownForDay: isToday,
-      bg: 'bg-warning-300',
-      className: 'text-dark',
+      dotBg: 'dates-dot-today',
+      bg: 'dates-badge-today',
+      className: 'text-white',
     },
     {
       message: messages.completed,
@@ -93,7 +94,7 @@ function getBadgeListAndColor(date, intl, item, items) {
         }
 
         if (!color && !isInFuture) {
-          color = b.bg;
+          color = b.dotBg || b.bg;
         }
         return (
           <Badge key={b.message.id} className={classNames('ml-2', b.bg, b.className)} data-testid="dates-badge">

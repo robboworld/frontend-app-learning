@@ -18,5 +18,14 @@
   "robbo.header.user.dashboard": "Dashboard",
   "robbo.header.user.profile": "Profile",
   "robbo.header.user.account": "Account",
-  "robbo.header.user.signOut": "Sign Out"
+  "robbo.header.user.signOut": "Sign Out",
+  "robbo.progress.weightedGradeSummary": "Your current weighted grade summary",
+  "robbo.progress.weightedGradeSummaryTooltip": "Your raw weighted grade summary is {rawGrade} and rounds to {roundedGrade}.",
+  "robbo.progress.courseOutline": "course outline",
+  "robbo.dates.courseStarts": "Course starts",
+  "robbo.dates.courseEnds": "Course ends",
+  "robbo.dates.enrollmentDate": "Enrollment Date",
+  "robbo.dates.courseEndsDescription": "After the course ends, the course content will be archived and no longer active.",
+  "robbo.dates.courseEndsDescriptionCertificate": "After this date, the course will be archived, which means you can review the course content but can no longer participate in graded assignments or work towards earning a certificate.",
+  "robbo.dates.courseArchivedDescription": "This course is archived, which means you can review course content but it is no longer active."
 }

@@ -18,5 +18,14 @@
   "robbo.header.user.dashboard": "Панель управления",
   "robbo.header.user.profile": "Профиль",
   "robbo.header.user.account": "Учетная запись",
-  "robbo.header.user.signOut": "Выйти"
+  "robbo.header.user.signOut": "Выйти",
+  "robbo.progress.weightedGradeSummary": "Ваш суммарный взвешенный балл",
+  "robbo.progress.weightedGradeSummaryTooltip": "Ваш необработанный взвешенный балл равен {rawGrade} и округляется до {roundedGrade}.",
+  "robbo.progress.courseOutline": "план курса",
+  "robbo.dates.courseStarts": "Начало курса",
+  "robbo.dates.courseEnds": "Окончание курса",
+  "robbo.dates.enrollmentDate": "Дата записи на курс",
+  "robbo.dates.courseEndsDescription": "После окончания курса материалы будут перенесены в архив и перестанут быть активными.",
+  "robbo.dates.courseEndsDescriptionCertificate": "После этой даты курс будет архивирован: вы сможете просматривать материалы, но не сможете выполнять оцениваемые задания и получить сертификат.",
+  "robbo.dates.courseArchivedDescription": "Курс в архиве: материалы доступны для просмотра, но курс больше не активен."
 }

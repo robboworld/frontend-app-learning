@@ -1,7 +1,7 @@
-// Robbo brand green (aligned with grade bar / course-home controls).
+// Robbo brand green (aligned with dates tab dot / grade bar / course-home controls).
+$robbo-donut-chart-complete-stroke: #00af41;
 $robbo-donut-chart-text-fill: $robbo-brand-primary-dark;
 $robbo-donut-hole-fill: $white;
-$robbo-donut-progress-stroke: $robbo-brand-primary;
 
 .donut rect {
   fill: transparent;
@@ -65,7 +65,7 @@ $robbo-donut-progress-stroke: $robbo-brand-primary;
 
 .donut-ring, .donut-segment, .donut-hole {
   &.complete-stroke {
-    stroke: $robbo-donut-progress-stroke;
+    stroke: $robbo-donut-chart-complete-stroke;
   }
 
   &.divider-stroke {

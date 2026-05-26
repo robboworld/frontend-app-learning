@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useModel } from '../../../generic/model-store';
 
+import { localizeDateSummaryString } from '../dateSummaryI18n';
 import { getBadgeListAndColor } from './badgelist';
 import { isLearnerAssignment } from '../utils';
 
@@ -63,7 +64,8 @@ const Day = ({
 
           const showDueDateTime = item.dateType === 'assignment-due-date';
           const showLink = item.link && isLearnerAssignment(item);
-          const title = showLink ? (<u><a href={item.link} className="text-reset">{item.title}</a></u>) : item.title;
+          const localizedTitle = localizeDateSummaryString(intl, item.title);
+          const title = showLink ? (<u><a href={item.link} className="text-reset">{localizedTitle}</a></u>) : localizedTitle;
           const available = item.learnerHasAccess && (item.link || !isLearnerAssignment(item));
           const textColor = available ? 'robbo-dates-primary-text' : 'text-gray-500';
 
@@ -95,7 +97,9 @@ const Day = ({
                   </OverlayTrigger>
                 )}
               </div>
-              {item.description && <div className="small mb-2">{item.description}</div>}
+              {item.description && (
+                <div className="small mb-2">{localizeDateSummaryString(intl, item.description)}</div>
+              )}
             </div>
           );
         })}

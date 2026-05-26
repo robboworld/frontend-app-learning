@@ -77,9 +77,9 @@ const messages = defineMessages({
     description: 'This shown when course is using (letter grade) to explain e.g. range for A, B, and C...etc',
   },
   courseOutline: {
-    id: 'progress.courseOutline',
+    id: 'robbo.progress.courseOutline',
     defaultMessage: 'Course outline',
-    description: 'Anchor text for link that redirects to (course outline) tab',
+    description: 'Anchor text for link to course outline (Robbo; lowercase in ru).',
   },
   currentGradeLabel: {
     id: 'progress.courseGrade.label.currentGrade',
@@ -199,14 +199,14 @@ const messages = defineMessages({
     description: 'Weighed grade is calculated by (weight %) * (grade score) ',
   },
   weightedGradeSummary: {
-    id: 'progress.weightedGradeSummary',
+    id: 'robbo.progress.weightedGradeSummary',
     defaultMessage: 'Your current weighted grade summary',
-    description: 'It the text precede the sum of weighted grades of all the assignment',
+    description: 'Footer label before total weighted grade (Robbo; not Atlas progress.weightedGradeSummary).',
   },
   weightedGradeSummaryTooltip: {
-    id: 'progress.weightedGradeSummary',
+    id: 'robbo.progress.weightedGradeSummaryTooltip',
     defaultMessage: 'Your raw weighted grade summary is {rawGrade} and rounds to {roundedGrade}.',
-    description: 'Tooltip content that explains the rounding of the summary versus individual assignments',
+    description: 'Tooltip for weighted grade footer (Robbo).',
   },
   practiceScoreInfoText: {
     id: 'progress.detailedGrades.practice-label.info.text',

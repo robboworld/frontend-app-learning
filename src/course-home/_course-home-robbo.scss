@@ -13,6 +13,7 @@ $robbo-course-home-section-title-fs: 1.5rem;
 $robbo-course-home-subsection-title-fs: 1.25rem;
 $robbo-course-home-link-color: $robbo-course-outline-brand-btn-bg;
 $robbo-course-home-link-hover: $robbo-course-outline-brand-btn-hover;
+$robbo-dates-today-green: #00af41;
 
 .course-progress-tab,
 .course-dates-tab {
@@ -103,6 +104,23 @@ $robbo-course-home-link-hover: $robbo-course-outline-brand-btn-hover;
     @include robbo-btn-outline-primary-brand;
   }
 
+  .course-dates-tab {
+    [data-testid="dates-header"],
+    [data-testid="dates-item"] {
+      color: $gray-900;
+    }
+
+    a:not(.btn):not(.dropdown-item) {
+      color: $gray-900;
+
+      &:hover,
+      &:focus,
+      &:focus-visible {
+        color: $gray-900;
+      }
+    }
+  }
+
   .course-dates-tab [data-testid="dates-header"] {
     font-size: $robbo-course-home-subsection-title-fs;
     font-weight: 600;
@@ -114,6 +132,16 @@ $robbo-course-home-link-hover: $robbo-course-outline-brand-btn-hover;
 
   .robbo-dates-primary-text {
     color: $robbo-course-home-link-color;
+  }
+
+  .dates-dot.dates-dot-today {
+    background-color: $robbo-dates-today-green;
+  }
+
+  .dates-badge-today.badge.badge-primary {
+    background-color: $robbo-dates-today-green;
+    border-color: $robbo-dates-today-green;
+    color: #fff;
   }
 
   .raised-card .btn-brand,
