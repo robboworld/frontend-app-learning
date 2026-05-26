@@ -1,7 +1,7 @@
 // Paragon ProductTour checkpoint — Robbo accent (same family as outline / unit nav).
 // Top bar uses $checkpoint-border-color in Paragon; brand token is often red in Open edX.
-$robbo-product-tour-accent: #007a3d;
-$robbo-product-tour-accent-hover: #006233;
+$robbo-product-tour-accent: $robbo-brand-primary-dark;
+$robbo-product-tour-accent-hover: $robbo-brand-primary-darker;
 
 .pgn__checkpoint {
   border-top-color: $robbo-product-tour-accent;

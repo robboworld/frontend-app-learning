@@ -1,6 +1,6 @@
 // Dark green CTA ("Начать тур"); same hue family as ProductTourCheckpoint.scss.
-$robbo-new-user-tour-cta: #0d4f2d;
-$robbo-new-user-tour-cta-hover: #083b22;
+$robbo-new-user-tour-cta: $robbo-brand-primary-darker;
+$robbo-new-user-tour-cta-hover: mix(#000000, $robbo-brand-primary, 48%);
 
 .new-user-tour-dialog .pgn__modal-footer .btn.btn-brand {
   background-color: $robbo-new-user-tour-cta;

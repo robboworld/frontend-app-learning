@@ -5,7 +5,7 @@
 // Progress / Dates tabs — typography and controls aligned with Robbo LMS + outline tab.
 // Requires `$robbo-course-outline-brand-btn-*` and `@mixin robbo-btn-outline-primary-brand` from index.scss.
 
-$robbo-course-home-font-family: 'Inter', "Helvetica Neue", Arial, sans-serif;
+$robbo-course-home-font-family: $robbo-font-stack;
 $robbo-course-home-body-fs: 1rem;
 $robbo-course-home-lead-fs: 0.9375rem;
 $robbo-course-home-page-title-fs: 1.75rem;

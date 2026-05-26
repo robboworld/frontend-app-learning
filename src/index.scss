@@ -3,6 +3,9 @@
 @import "~@openedx/paragon/scss/core/core";
 @import "~@edx/brand/paragon/overrides";
 
+@import './sass/robbo-brand-fonts';
+@import './sass/robbo-brand-tokens';
+
 // Sticky footer: flex column must run from #root through every shell wrapper. With a Redux store,
 // OptionalReduxProvider wraps Router in div[data-testid="redux-provider"], so browser-router is
 // not a direct #root child — the old `#root > [data-testid="browser-router"]` rule never matched.
@@ -85,8 +88,8 @@
 }
 
 // Course home / courseware tab bar — Robbo green instead of theme primary (blue).
-$robbo-course-tab-accent: #00b140;
-$robbo-course-tab-accent-strong: #007a3d;
+$robbo-course-tab-accent: $robbo-brand-primary;
+$robbo-course-tab-accent-strong: $robbo-brand-primary-dark;
 
 .course-tabs-navigation .nav-underline-tabs .nav-link {
   &:hover,
@@ -486,9 +489,9 @@ $robbo-course-tab-accent-strong: #007a3d;
   box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, .2) !important;
 }
 
-// Outline tab — «Начать / Возобновить курс» (Paragon `variant="brand"`). Darker green than header bar (#00b140).
-$robbo-course-outline-brand-btn-bg: #007a3d;
-$robbo-course-outline-brand-btn-hover: #006233;
+// Outline tab — «Начать / Возобновить курс» (Paragon `variant="brand"`).
+$robbo-course-outline-brand-btn-bg: $robbo-brand-primary-dark;
+$robbo-course-outline-brand-btn-hover: $robbo-brand-primary-darker;
 
 // Shared: outline “primary” controls styled as Robbo green (not Paragon default blue).
 @mixin robbo-btn-outline-primary-brand {
