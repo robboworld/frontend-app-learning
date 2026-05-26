@@ -47,7 +47,7 @@ const Day = ({
 
       {/* Content */}
       <div className="d-inline-block ml-3 pl-2">
-        <div className="row w-100 m-0 mb-1 align-items-center text-primary-700" data-testid="dates-header">
+        <div className="row w-100 m-0 mb-1 align-items-center robbo-dates-primary-text" data-testid="dates-header">
           <FormattedDate
             value={date}
             day="numeric"
@@ -65,7 +65,7 @@ const Day = ({
           const showLink = item.link && isLearnerAssignment(item);
           const title = showLink ? (<u><a href={item.link} className="text-reset">{item.title}</a></u>) : item.title;
           const available = item.learnerHasAccess && (item.link || !isLearnerAssignment(item));
-          const textColor = available ? 'text-primary-700' : 'text-gray-500';
+          const textColor = available ? 'robbo-dates-primary-text' : 'text-gray-500';
 
           return (
             <div key={item.title + item.date} className={classNames(textColor, 'small pb-1')} data-testid="dates-item">

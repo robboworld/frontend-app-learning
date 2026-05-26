@@ -108,6 +108,14 @@ $robbo-course-home-link-hover: $robbo-course-outline-brand-btn-hover;
     font-weight: 600;
   }
 
+  [data-testid="dates-header"].robbo-dates-primary-text {
+    color: $robbo-brand-coal;
+  }
+
+  .robbo-dates-primary-text {
+    color: $robbo-course-home-link-color;
+  }
+
   .raised-card .btn-brand,
   .btn-brand {
     background-color: $robbo-course-outline-brand-btn-bg;

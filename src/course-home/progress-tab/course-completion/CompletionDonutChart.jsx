@@ -32,7 +32,7 @@ const CompletionDonutChart = () => {
         {/* The radius (or "r" attribute) is based off of a circumference of 100 in order to simplify percentage
             calculations. The subsequent stroke-dasharray values found in each segment should add up to equal 100
             in order to wrap around the circle once. */}
-        <circle className="donut-hole" fill="#fff" cx="21" cy="21" r="15.91549430918954" />
+        <circle className="donut-hole" cx="21" cy="21" r="15.91549430918954" />
         <g className="donut-chart-text">
           <text x="50%" y="50%" className="donut-chart-number">
             {completePercentage}{isLocaleRtl && '\u200f'}%
