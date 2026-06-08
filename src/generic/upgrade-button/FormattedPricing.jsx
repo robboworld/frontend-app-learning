@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from '@edx/frontend-platform/i18n';
 
+import { formatDisplayPrice } from './formatDisplayPrice';
 import messages from './messages';
 
 const FormattedPricing = (props) => {
@@ -12,16 +13,8 @@ const FormattedPricing = (props) => {
     verifiedMode,
   } = props;
 
-  let currencySymbol;
-  if (verifiedMode) {
-    currencySymbol = verifiedMode.currencySymbol;
-  }
-
   if (!offer) {
-    const {
-      price,
-    } = verifiedMode;
-    return `${currencySymbol}${price}`;
+    return formatDisplayPrice(verifiedMode);
   }
 
   const {

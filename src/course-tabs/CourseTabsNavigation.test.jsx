@@ -80,6 +80,17 @@ describe('Course Tabs Navigation', () => {
     expect(screen.getByRole('link', { name: 'Dates' })).toHaveAttribute('id', 'courseHome-datesTabLink');
   });
 
+  it('applies highlight class to the verified tab', () => {
+    const tabs = [
+      { url: 'http://outline', title: 'Course', slug: 'outline' },
+      { url: 'http://verified', title: 'Full access', slug: 'verified' },
+    ];
+    renderComponent({ tabs, activeTabSlug: 'outline' });
+
+    expect(screen.getByRole('link', { name: 'Full access' })).toHaveClass('course-tabs-navigation__verified-tab');
+    expect(screen.getByRole('link', { name: 'Course' })).not.toHaveClass('course-tabs-navigation__verified-tab');
+  });
+
   it('should NOT render CoursewareSearch if the flag is off', () => {
     renderComponent();
 

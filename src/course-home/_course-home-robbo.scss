@@ -16,7 +16,8 @@ $robbo-course-home-link-hover: $robbo-course-outline-brand-btn-hover;
 $robbo-dates-today-green: #00af41;
 
 .course-progress-tab,
-.course-dates-tab {
+.course-dates-tab,
+.course-verified-tab {
   font-family: $robbo-course-home-font-family;
   font-size: $robbo-course-home-body-fs;
   line-height: 1.5;
@@ -167,5 +168,24 @@ $robbo-dates-today-green: #00af41;
       color: #fff;
       box-shadow: 0 0 0 0.2rem rgba($robbo-course-outline-brand-btn-bg, 0.35);
     }
+  }
+}
+
+.course-verified-tab {
+  &__card {
+    max-width: 42rem;
+  }
+
+  &__benefits {
+    padding-left: 1.5rem;
+  }
+
+  &__upgrade-btn {
+    max-width: 24rem;
+  }
+
+  &__unavailable {
+    max-width: 42rem;
+    color: $gray-700;
   }
 }

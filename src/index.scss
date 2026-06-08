@@ -521,7 +521,8 @@ $robbo-course-outline-brand-btn-hover: $robbo-brand-primary-darker;
   }
 }
 
-.course-outline-tab .raised-card .btn-brand {
+.course-outline-tab .raised-card .btn-brand,
+.course-outline-tab .alert .btn-brand {
   background-color: $robbo-course-outline-brand-btn-bg;
   border-color: $robbo-course-outline-brand-btn-bg;
   color: #fff;

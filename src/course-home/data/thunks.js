@@ -105,6 +105,10 @@ export function fetchDiscussionTab(courseId) {
   return fetchTab(courseId, 'discussion');
 }
 
+export function fetchVerifiedTab(courseId) {
+  return fetchTab(courseId, 'verified', getOutlineTabData);
+}
+
 export function dismissWelcomeMessage(courseId) {
   return async () => postDismissWelcomeMessage(courseId);
 }

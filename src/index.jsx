@@ -23,9 +23,10 @@ import CoursewareRedirectLandingPage from './courseware/CoursewareRedirectLandin
 import DatesTab from './course-home/dates-tab';
 import GoalUnsubscribe from './course-home/goal-unsubscribe';
 import ProgressTab from './course-home/progress-tab/ProgressTab';
+import VerifiedTab from './course-home/verified-tab';
 import { TabContainer } from './tab-page';
 
-import { fetchDatesTab, fetchOutlineTab, fetchProgressTab } from './course-home/data';
+import { fetchDatesTab, fetchOutlineTab, fetchProgressTab, fetchVerifiedTab } from './course-home/data';
 import { fetchCourse } from './courseware/data';
 import { store } from './store';
 import NoticesProvider from './generic/notices';
@@ -163,6 +164,16 @@ subscribe(APP_READY, () => {
                   )}
                   />
                 ))}
+                <Route
+                  path={DECODE_ROUTES.VERIFIED}
+                  element={(
+                    <DecodePageRoute>
+                      <TabContainer tab="verified" fetch={fetchVerifiedTab} slice="courseHome">
+                        <VerifiedTab />
+                      </TabContainer>
+                    </DecodePageRoute>
+                )}
+                />
                 <Route
                   path={DECODE_ROUTES.COURSE_END}
                   element={(

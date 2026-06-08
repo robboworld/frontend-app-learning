@@ -4,6 +4,7 @@ import { useIntl } from '@edx/frontend-platform/i18n';
 import classNames from 'classnames';
 
 import { getLocalizedCourseTabTitle } from './courseTabTitleMessages';
+import { VERIFIED_TAB_SLUG } from './buildNavigationTabs';
 import messages from './messages';
 import Tabs from '../generic/tabs/Tabs';
 import { CoursewareSearch, CoursewareSearchToggle } from '../course-home/courseware-search';
@@ -28,7 +29,10 @@ const CourseTabsNavigation = ({
                 <a
                   key={slug}
                   id={slug === 'dates' ? 'courseHome-datesTabLink' : undefined}
-                  className={classNames('nav-item flex-shrink-0 nav-link', { active: slug === activeTabSlug })}
+                  className={classNames('nav-item flex-shrink-0 nav-link', {
+                    active: slug === activeTabSlug,
+                    'course-tabs-navigation__verified-tab': slug === VERIFIED_TAB_SLUG,
+                  })}
                   href={url}
                 >
                   {getLocalizedCourseTabTitle(intl.formatMessage, slug, title)}

@@ -7,7 +7,7 @@ import { getConfig } from '@edx/frontend-platform';
 import { useToggle } from '@openedx/paragon';
 
 import { CourseTabsNavigation } from '../course-tabs';
-import { filterNavigationTabs } from '../course-tabs/filterNavigationTabs';
+import { buildNavigationTabs } from '../course-tabs/buildNavigationTabs';
 import { useModel } from '../generic/model-store';
 import { AlertList } from '../generic/user-messages';
 import StreakModal from '../shared/streak-celebration';
@@ -33,15 +33,26 @@ const LoadedTabPage = ({
     tabs,
     title,
     verifiedMode,
+    isEnrolled,
     hasCourseAuthorAccess,
+    enrollmentMode,
+    courseModes,
   } = useModel('courseHomeMeta', courseId);
+
+  const navigationTabs = buildNavigationTabs(tabs, {
+    courseId,
+    verifiedMode,
+    isEnrolled,
+    enrollmentMode,
+    courseModes,
+  });
 
   // Logistration and enrollment alerts are only really used for the outline tab, but loaded here to put them above
   // breadcrumbs when they are visible.
   const logistrationAlert = useLogistrationAlert(courseId);
   const enrollmentAlert = useEnrollmentAlert(courseId);
 
-  const activeTab = tabs.filter(tab => tab.slug === activeTabSlug)[0];
+  const activeTab = navigationTabs.find((tab) => tab.slug === activeTabSlug);
   const activeTabTitleForDocument = activeTab
     ? getLocalizedCourseTabTitle(intl.formatMessage, activeTab.slug, activeTab.title)
     : '';
@@ -88,7 +99,7 @@ const LoadedTabPage = ({
           }}
         />
         <CourseTabsNavigation
-          tabs={filterNavigationTabs(tabs)}
+          tabs={navigationTabs}
           className="mb-3"
           activeTabSlug={activeTabSlug}
         />

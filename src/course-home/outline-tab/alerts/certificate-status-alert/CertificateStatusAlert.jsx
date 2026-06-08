@@ -173,7 +173,7 @@ const CertificateStatusAlert = ({ payload }) => {
             {buttonVisible && (
               <div className="flex-grow-0 pt-3 pt-lg-0">
                 <Button
-                  variant="primary"
+                  variant="brand"
                   href={buttonLink}
                   onClick={() => {
                     if (buttonAction) { buttonAction(); }

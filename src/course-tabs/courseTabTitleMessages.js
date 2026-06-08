@@ -35,6 +35,11 @@ export const courseTabTitleMessageBySlug = defineMessages({
     defaultMessage: 'Progress',
     description: 'Progress tab label',
   },
+  verified: {
+    id: 'robbo.courseTab.verified',
+    defaultMessage: 'Full access',
+    description: 'Full-access upgrade tab label',
+  },
   dates: {
     id: 'robbo.courseTab.dates',
     defaultMessage: 'Dates',

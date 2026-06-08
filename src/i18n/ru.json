@@ -41,7 +41,7 @@
   "cert.alert.earned.ready.header": "Поздравляем! Ваш сертификат готов.",
   "cert.alert.earned.unavailable.header.v2": "Ваша оценка и статус сертификата будут доступны в ближайшее время.",
   "cert.alert.notPassing.button": "Просмотр оценок",
-  "cert.alert.notPassing.header": "Вы еще не имеете права на получение сертификата",
+  "cert.alert.notPassing.header": "Вы не выполнили необходимые условия в прохождении курса для получения сертификата",
   "courseCelebration.certificateBody.available": "Продемонстрируйте свои достижения на LinkedIn или в своем резюме сегодня. Вы можете скачать сертификат сейчас и получить к нему доступ в любое время со своих {dashboardLink} и {profileLink}.",
   "courseCelebration.certificateBody.notAvailable.accessCertificate": "Если вы получили проходной балл, ваш сертификат будет выдан автоматически.",
   "courseCelebration.certificateBody.notAvailable.endDate": "Итоговые оценки и все полученные сертификаты будут доступны после {endDate}.",

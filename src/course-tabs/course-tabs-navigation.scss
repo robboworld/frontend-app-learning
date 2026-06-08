@@ -68,5 +68,16 @@ $robbo-course-tabs-stacking-z: $zindex-fixed + 5;
     }
   }
 
+  // «Полный доступ» — обычная underline-вкладка, но зелёный жирный текст.
+  .nav-underline-tabs .nav-link.course-tabs-navigation__verified-tab {
+    font-weight: $font-weight-bold;
+    color: $robbo-course-tab-accent;
 
+    &:hover,
+    &:focus,
+    &.active {
+      font-weight: $font-weight-bold;
+      color: $robbo-course-tab-accent-strong;
+    }
+  }
 }

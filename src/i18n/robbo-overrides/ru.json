@@ -4,6 +4,7 @@
   "robbo.courseTab.discussion": "Обсуждение",
   "robbo.courseTab.wiki": "Вики",
   "robbo.courseTab.progress": "Прогресс",
+  "robbo.courseTab.verified": "Полный доступ",
   "robbo.courseTab.dates": "Даты",
   "robbo.courseTab.instructor": "Преподаватель",
   "robbo.courseTab.live": "Прямой эфир",
@@ -27,5 +28,18 @@
   "robbo.dates.enrollmentDate": "Дата записи на курс",
   "robbo.dates.courseEndsDescription": "После окончания курса материалы будут перенесены в архив и перестанут быть активными.",
   "robbo.dates.courseEndsDescriptionCertificate": "После этой даты курс будет архивирован: вы сможете просматривать материалы, но не сможете выполнять оцениваемые задания и получить сертификат.",
-  "robbo.dates.courseArchivedDescription": "Курс в архиве: материалы доступны для просмотра, но курс больше не активен."
+  "robbo.dates.courseArchivedDescription": "Курс в архиве: материалы доступны для просмотра, но курс больше не активен.",
+  "robbo.verifiedTab.title": "Полный доступ",
+  "robbo.verifiedTab.heading": "Оформление полного доступа",
+  "robbo.verifiedTab.body": "Вы записаны на курс в ознакомительном режиме. Оформите полный доступ, чтобы выполнять оцениваемые задания и получить сертификат.",
+  "robbo.verifiedTab.certificateBullet": "Получите сертификат об окончании курса — его можно указать в резюме.",
+  "robbo.verifiedTab.alreadyVerifiedHeading": "У вас полный доступ",
+  "robbo.verifiedTab.alreadyVerifiedBody": "Вы можете выполнять оцениваемые задания и претендовать на сертификат по этому курсу.",
+  "robbo.verifiedTab.unavailable": "Сейчас полный доступ для вашей записи на курс недоступен.",
+  "learning.upgradeButton.buttonText": "Оформить полный доступ за {pricing}",
+  "learning.generic.upsell.unlockGradedBullet": "Доступ ко всем активностям курса, включая {gradedAssignmentsInBoldText}",
+  "learning.generic.upsell.unlockGradedBullet.gradedAssignments": "оцениваемые задания",
+  "learning.generic.upsell.fullAccessBullet": "{fullAccessInBoldText} к материалам курса — в том числе после его окончания",
+  "learning.generic.upsell.fullAccessBullet.fullAccess": "Полный доступ",
+  "cert.alert.notPassing.header": "Вы не выполнили необходимые условия в прохождении курса для получения сертификата"
 }

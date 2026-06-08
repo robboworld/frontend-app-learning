@@ -4,6 +4,7 @@
   "robbo.courseTab.discussion": "Discussion",
   "robbo.courseTab.wiki": "Wiki",
   "robbo.courseTab.progress": "Progress",
+  "robbo.courseTab.verified": "Full access",
   "robbo.courseTab.dates": "Dates",
   "robbo.courseTab.instructor": "Instructor",
   "robbo.courseTab.live": "Live",
@@ -27,5 +28,12 @@
   "robbo.dates.enrollmentDate": "Enrollment Date",
   "robbo.dates.courseEndsDescription": "After the course ends, the course content will be archived and no longer active.",
   "robbo.dates.courseEndsDescriptionCertificate": "After this date, the course will be archived, which means you can review the course content but can no longer participate in graded assignments or work towards earning a certificate.",
-  "robbo.dates.courseArchivedDescription": "This course is archived, which means you can review course content but it is no longer active."
+  "robbo.dates.courseArchivedDescription": "This course is archived, which means you can review course content but it is no longer active.",
+  "robbo.verifiedTab.title": "Full access",
+  "robbo.verifiedTab.heading": "Get full access",
+  "robbo.verifiedTab.body": "You are enrolled in preview mode. Get full access to complete graded assignments and earn a certificate.",
+  "robbo.verifiedTab.certificateBullet": "Earn a certificate of completion for your resume.",
+  "robbo.verifiedTab.alreadyVerifiedHeading": "You have full access",
+  "robbo.verifiedTab.alreadyVerifiedBody": "You can complete graded assignments and qualify for a certificate in this course.",
+  "robbo.verifiedTab.unavailable": "Full access is not available for your enrollment at this time."
 }
