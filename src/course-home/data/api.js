@@ -1,6 +1,6 @@
 import { camelCaseObject, getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
-import { logInfo } from '@edx/frontend-platform/logging';
+import { logError, logInfo } from '@edx/frontend-platform/logging';
 import { appendBrowserTimezoneToUrl } from '../../utils';
 
 const calculateAssignmentTypeGrades = (points, assignmentWeight, numDroppable) => {
@@ -407,6 +407,22 @@ export async function getOutlineTabData(courseId) {
     verifiedMode,
     welcomeMessageHtml,
   };
+}
+
+/**
+ * Verified tab only needs enrollment/offer fields; avoid failing the tab when outline is slow or errors.
+ */
+export async function getVerifiedTabData(courseId) {
+  try {
+    const outline = await getOutlineTabData(courseId);
+    return {
+      enrollmentMode: outline.enrollmentMode,
+      offer: outline.offer,
+    };
+  } catch (error) {
+    logError(error);
+    return {};
+  }
 }
 
 export async function postCourseDeadlines(courseId, model) {

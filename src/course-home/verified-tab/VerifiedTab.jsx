@@ -29,13 +29,16 @@ const VerifiedTab = () => {
     isEnrolled,
     org,
     verifiedMode,
+    enrollmentMode: metaEnrollmentMode,
   } = useModel('courseHomeMeta', courseId);
 
-  const {
-    enrollmentMode,
-    offer,
-  } = useModel('verified', courseId);
+  const { offer } = useModel('verified', courseId);
 
+  if (!courseId) {
+    return null;
+  }
+
+  const enrollmentMode = metaEnrollmentMode;
   const isVerifiedEnrollment = enrollmentMode && VERIFIED_MODES.includes(enrollmentMode);
 
   const logUpgradeClick = () => {

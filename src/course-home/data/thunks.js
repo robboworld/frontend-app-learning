@@ -5,6 +5,7 @@ import {
   getCourseHomeCourseMetadata,
   getDatesTabData,
   getOutlineTabData,
+  getVerifiedTabData,
   getProgressTabData,
   postCourseDeadlines,
   deprecatedPostCourseGoals,
@@ -71,7 +72,15 @@ export function fetchTab(courseId, tab, getTabData, targetUserId) {
         // the tabDataResult.
         dispatch(fetchTabDenied({ courseId }));
       } else if (tabDataResult?.status === 'rejected') {
-        throw tabDataResult.reason;
+        // Full-access tab renders from course metadata; optional tab API must not block the page.
+        if (tab === 'verified') {
+          dispatch(fetchTabSuccess({
+            courseId,
+            targetUserId,
+          }));
+        } else {
+          throw tabDataResult.reason;
+        }
       } else {
         dispatch(fetchTabSuccess({
           courseId,
@@ -106,7 +115,7 @@ export function fetchDiscussionTab(courseId) {
 }
 
 export function fetchVerifiedTab(courseId) {
-  return fetchTab(courseId, 'verified', getOutlineTabData);
+  return fetchTab(courseId, 'verified', getVerifiedTabData);
 }
 
 export function dismissWelcomeMessage(courseId) {

@@ -217,7 +217,14 @@ subscribe(APP_INIT_ERROR, (error) => {
 initialize({
   handlers: {
     config: () => {
+      const mfeConfigApiUrl = typeof window !== 'undefined' && window.location?.origin
+        ? `${window.location.origin}/api/mfe_config/v1`
+        : process.env.MFE_CONFIG_API_URL || null;
+
       mergeConfig({
+        // Production dist is built with empty .env placeholders; load LMS/MFE settings at runtime.
+        MFE_CONFIG_API_URL: mfeConfigApiUrl,
+        OPTIMIZELY_FULL_STACK_SDK_KEY: process.env.OPTIMIZELY_FULL_STACK_SDK_KEY || 'disabled',
         CONTACT_URL: process.env.CONTACT_URL || null,
         CREDENTIALS_BASE_URL: process.env.CREDENTIALS_BASE_URL || null,
         CREDIT_HELP_LINK_URL: process.env.CREDIT_HELP_LINK_URL || null,

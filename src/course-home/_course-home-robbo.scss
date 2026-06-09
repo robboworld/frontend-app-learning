@@ -146,7 +146,8 @@ $robbo-dates-today-green: #00af41;
   }
 
   .raised-card .btn-brand,
-  .btn-brand {
+  .btn-brand,
+  .btn-primary {
     background-color: $robbo-course-outline-brand-btn-bg;
     border-color: $robbo-course-outline-brand-btn-bg;
     color: #fff;
@@ -162,7 +163,8 @@ $robbo-dates-today-green: #00af41;
       color: #fff;
     }
 
-    &:focus {
+    &:focus,
+    &:focus-visible {
       background-color: $robbo-course-outline-brand-btn-bg;
       border-color: $robbo-course-outline-brand-btn-bg;
       color: #fff;
