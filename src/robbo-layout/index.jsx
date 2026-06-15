@@ -76,6 +76,7 @@ export const RobboHeader = ({
 }) => {
   const { authenticatedUser } = React.useContext(AppContext);
   const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
+  const userMenuRef = React.useRef(null);
   const isNarrowViewport = useMatchMedia(MOBILE_COLLAPSE_NAV_QUERY);
   const collapseMainNav = Boolean(collapseNavIntoUserMenuOnNarrow && isNarrowViewport);
   const intl = useIntl();
@@ -126,6 +127,19 @@ export const RobboHeader = ({
     } : null,
   ].filter(Boolean);
 
+  React.useEffect(() => {
+    if (!isUserMenuOpen) {
+      return undefined;
+    }
+    const handlePointerDown = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handlePointerDown);
+    return () => document.removeEventListener('mousedown', handlePointerDown);
+  }, [isUserMenuOpen]);
+
   const headerClassName = ['robbo-layout-header'];
   if (collapseMainNav) {
     headerClassName.push('robbo-layout-header--nav-collapsed');
@@ -165,7 +179,7 @@ export const RobboHeader = ({
         </nav>
         <div className="robbo-layout-header__trailing">
           {showUserDropdown && username && (
-            <div className="robbo-layout-user-menu">
+            <div className="robbo-layout-user-menu" ref={userMenuRef}>
               <button
                 className={[
                   'robbo-layout-user-menu__toggle',
