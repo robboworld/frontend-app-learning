@@ -81,6 +81,7 @@ const CertificateStatusAlert = ({ payload }) => {
       alertProps.buttonMessage = intl.formatMessage(certStatusMessages.viewableButton);
       alertProps.buttonVisible = true;
       alertProps.buttonLink = certURL;
+      alertProps.buttonVariant = 'primary';
       alertProps.buttonAction = () => {
         sendAlertClickTracking('edx.ui.lms.course_outline.certificate_alert_downloadable_button.clicked');
       };
@@ -89,6 +90,7 @@ const CertificateStatusAlert = ({ payload }) => {
       alertProps.buttonMessage = intl.formatMessage(certStatusMessages.requestableButton);
       alertProps.buttonVisible = true;
       alertProps.buttonLink = '';
+      alertProps.buttonVariant = 'brand';
       alertProps.buttonAction = () => {
         sendAlertClickTracking('edx.ui.lms.course_outline.certificate_alert_request_cert_button.clicked');
         dispatch(requestCert(courseId));
@@ -162,6 +164,7 @@ const CertificateStatusAlert = ({ payload }) => {
         buttonAction,
         buttonLink,
         buttonMessage,
+        buttonVariant = 'primary',
       }) => (
         <Alert variant={variant}>
           <div className="d-flex flex-column flex-lg-row justify-content-between align-items-center">
@@ -173,7 +176,7 @@ const CertificateStatusAlert = ({ payload }) => {
             {buttonVisible && (
               <div className="flex-grow-0 pt-3 pt-lg-0">
                 <Button
-                  variant="primary"
+                  variant={buttonVariant}
                   href={buttonLink}
                   onClick={() => {
                     if (buttonAction) { buttonAction(); }

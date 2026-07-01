@@ -110,7 +110,10 @@ export function dismissWelcomeMessage(courseId) {
 }
 
 export function requestCert(courseId) {
-  return async () => postRequestCert(courseId);
+  return async () => {
+    await postRequestCert(courseId);
+    window.location.reload();
+  };
 }
 
 export function resetDeadlines(courseId, model, getTabData) {

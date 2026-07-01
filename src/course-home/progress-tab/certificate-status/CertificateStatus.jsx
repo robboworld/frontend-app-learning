@@ -250,7 +250,7 @@ const CertificateStatus = () => {
             <Card.Footer>
               {buttonText && (buttonLocation || buttonAction) && (
                 <Button
-                  variant="outline-brand"
+                  variant={certCase === 'requestable' ? 'brand' : 'outline-brand'}
                   onClick={() => {
                     logCertificateStatusButtonClicked(certStatus);
                     if (buttonAction) { buttonAction(); }
