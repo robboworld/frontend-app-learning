@@ -18,6 +18,7 @@
   "robbo.header.user.dashboard": "Dashboard",
   "robbo.header.user.profile": "Profile",
   "robbo.header.user.account": "Account",
+  "robbo.header.user.analytics": "Analytics",
   "robbo.header.user.signOut": "Sign Out",
   "robbo.progress.weightedGradeSummary": "Your current weighted grade summary",
   "robbo.progress.weightedGradeSummaryTooltip": "Your raw weighted grade summary is {rawGrade} and rounds to {roundedGrade}.",

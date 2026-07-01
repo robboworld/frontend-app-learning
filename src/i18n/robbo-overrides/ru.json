@@ -18,6 +18,7 @@
   "robbo.header.user.dashboard": "Панель управления",
   "robbo.header.user.profile": "Профиль",
   "robbo.header.user.account": "Учетная запись",
+  "robbo.header.user.analytics": "Аналитика",
   "robbo.header.user.signOut": "Выйти",
   "robbo.progress.weightedGradeSummary": "Ваш суммарный взвешенный балл",
   "robbo.progress.weightedGradeSummaryTooltip": "Ваш необработанный взвешенный балл равен {rawGrade} и округляется до {roundedGrade}.",
