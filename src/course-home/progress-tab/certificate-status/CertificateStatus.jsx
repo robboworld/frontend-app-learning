@@ -110,7 +110,7 @@ const CertificateStatus = () => {
     switch (certStatus) {
       case 'requesting':
         certCase = 'requestable';
-        buttonAction = () => { dispatch(requestCert(courseId)); };
+        buttonAction = async () => { await dispatch(requestCert(courseId)); };
         body = intl.formatMessage(messages[`${certCase}Body`]);
         buttonText = intl.formatMessage(messages[`${certCase}Button`]);
         break;

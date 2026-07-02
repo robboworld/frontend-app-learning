@@ -19,6 +19,21 @@ const messages = defineMessages({
     id: 'cert.alert.notPassing.button',
     defaultMessage: 'View grades',
   },
+  certStatusGeneratingHeader: {
+    id: 'cert.alert.generating.header',
+    defaultMessage: "We're working on it...",
+    description: 'Header while the learner certificate is being generated.',
+  },
+  certStatusGeneratingBody: {
+    id: 'cert.alert.generating.body',
+    defaultMessage: 'Your certificate is being created. This page will update automatically.',
+    description: 'Body text while the learner certificate is being generated.',
+  },
+  certStatusGeneratingButton: {
+    id: 'cert.alert.generating.button',
+    defaultMessage: 'Generating certificate',
+    description: 'Button label while the learner certificate is being generated.',
+  },
 });
 
 export default messages;

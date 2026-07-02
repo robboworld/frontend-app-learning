@@ -28,5 +28,8 @@
   "robbo.dates.enrollmentDate": "Дата записи на курс",
   "robbo.dates.courseEndsDescription": "После окончания курса материалы будут перенесены в архив и перестанут быть активными.",
   "robbo.dates.courseEndsDescriptionCertificate": "После этой даты курс будет архивирован: вы сможете просматривать материалы, но не сможете выполнять оцениваемые задания и получить сертификат.",
-  "robbo.dates.courseArchivedDescription": "Курс в архиве: материалы доступны для просмотра, но курс больше не активен."
+  "robbo.dates.courseArchivedDescription": "Курс в архиве: материалы доступны для просмотра, но курс больше не активен.",
+  "cert.alert.generating.header": "Создаём сертификат",
+  "cert.alert.generating.body": "Сертификат формируется. Страница обновится автоматически.",
+  "cert.alert.generating.button": "Генерация сертификата"
 }

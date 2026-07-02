@@ -11,6 +11,7 @@ import {
   postWeeklyLearningGoal,
   postDismissWelcomeMessage,
   postRequestCert,
+  pollUntilCertDownloadable,
   getLiveTabIframe,
   getCoursewareSearchEnabled,
   searchCourseContentFromAPI,
@@ -109,10 +110,47 @@ export function dismissWelcomeMessage(courseId) {
   return async () => postDismissWelcomeMessage(courseId);
 }
 
+/** Refresh outline/progress models after cert generation without resetting courseStatus to loading. */
+export function refreshCertTabData(courseId) {
+  return async (dispatch) => {
+    const [outlineResult, progressResult] = await Promise.allSettled([
+      getOutlineTabData(courseId),
+      getProgressTabData(courseId),
+    ]);
+    if (outlineResult.status === 'fulfilled') {
+      dispatch(addModel({
+        modelType: 'outline',
+        model: {
+          id: courseId,
+          ...outlineResult.value,
+        },
+      }));
+    }
+    if (progressResult.status === 'fulfilled') {
+      dispatch(addModel({
+        modelType: 'progress',
+        model: {
+          id: courseId,
+          ...progressResult.value,
+        },
+      }));
+    }
+  };
+}
+
 export function requestCert(courseId) {
-  return async () => {
-    await postRequestCert(courseId);
-    window.location.reload();
+  return async (dispatch) => {
+    try {
+      await postRequestCert(courseId);
+    } catch (error) {
+      // LMS returns 400 when generation is already queued or finished — keep polling.
+      if (error?.response?.status !== 400) {
+        logError(error);
+        throw error;
+      }
+    }
+    await pollUntilCertDownloadable(courseId);
+    await dispatch(refreshCertTabData(courseId));
   };
 }
 

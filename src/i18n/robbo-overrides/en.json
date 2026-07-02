@@ -28,5 +28,8 @@
   "robbo.dates.enrollmentDate": "Enrollment Date",
   "robbo.dates.courseEndsDescription": "After the course ends, the course content will be archived and no longer active.",
   "robbo.dates.courseEndsDescriptionCertificate": "After this date, the course will be archived, which means you can review the course content but can no longer participate in graded assignments or work towards earning a certificate.",
-  "robbo.dates.courseArchivedDescription": "This course is archived, which means you can review course content but it is no longer active."
+  "robbo.dates.courseArchivedDescription": "This course is archived, which means you can review course content but it is no longer active.",
+  "cert.alert.generating.header": "We're working on it",
+  "cert.alert.generating.body": "Your certificate is being created. This page will update automatically.",
+  "cert.alert.generating.button": "Generating certificate"
 }

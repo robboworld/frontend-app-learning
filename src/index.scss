@@ -521,10 +521,15 @@ $robbo-course-outline-brand-btn-hover: $robbo-brand-primary-darker;
   }
 }
 
-.course-outline-tab .raised-card .btn-brand {
+// Shared: outline «Продолжить курс» and certificate alert brand buttons.
+@mixin robbo-course-outline-btn-brand {
   background-color: $robbo-course-outline-brand-btn-bg;
   border-color: $robbo-course-outline-brand-btn-bg;
   color: #fff;
+
+  &::before {
+    display: none !important;
+  }
 
   &:visited {
     color: #fff;
@@ -537,12 +542,18 @@ $robbo-course-outline-brand-btn-hover: $robbo-brand-primary-darker;
     color: #fff;
   }
 
-  &:focus {
+  &:focus,
+  &:focus-visible {
     background-color: $robbo-course-outline-brand-btn-bg;
     border-color: $robbo-course-outline-brand-btn-bg;
     color: #fff;
     box-shadow: 0 0 0 0.2rem rgba($robbo-course-outline-brand-btn-bg, 0.35);
   }
+}
+
+.course-outline-tab .raised-card .btn-brand,
+.course-outline-tab .alert .btn-brand:not(.robbo-cert-alert-view-btn) {
+  @include robbo-course-outline-btn-brand;
 }
 
 // Unit title — «Добавить в закладки» (StatefulButton `variant="link"`).

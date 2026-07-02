@@ -441,6 +441,33 @@ export async function postRequestCert(courseId) {
   await getAuthenticatedHttpClient().post(url.href);
 }
 
+export async function fetchOutlineCertData(courseId) {
+  const url = `${getConfig().LMS_BASE_URL}/api/course_home/outline/${courseId}`;
+  const { data } = await getAuthenticatedHttpClient().get(url);
+  return camelCaseObject(data.cert_data);
+}
+
+const sleep = (ms) => new Promise((resolve) => {
+  setTimeout(resolve, ms);
+});
+
+export async function pollUntilCertDownloadable(courseId, {
+  intervalMs = 1000,
+  maxAttempts = 30,
+} = {}) {
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    const certData = await fetchOutlineCertData(courseId);
+    if (certData?.certStatus === 'downloadable') {
+      return certData;
+    }
+    if (certData?.certStatus !== 'generating' && certData?.certStatus !== 'requesting') {
+      break;
+    }
+    await sleep(intervalMs);
+  }
+  return fetchOutlineCertData(courseId);
+}
+
 export async function executePostFromPostEvent(postData, researchEventData) {
   const url = new URL(postData.url);
   return getAuthenticatedHttpClient().post(url.href, {
