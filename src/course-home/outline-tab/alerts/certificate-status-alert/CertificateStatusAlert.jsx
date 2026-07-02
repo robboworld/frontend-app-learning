@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   FormattedDate,
@@ -16,10 +16,12 @@ import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import certMessages from './messages';
 import certStatusMessages from '../../../progress-tab/certificate-status/messages';
 import { requestCert } from '../../../data/thunks';
+import GeneratingCertificateButtonLabel from './GeneratingCertificateButtonLabel';
 
 export const CERT_STATUS_TYPE = {
   EARNED_NOT_AVAILABLE: 'earned_but_not_available',
   DOWNLOADABLE: 'downloadable',
+  GENERATING: 'generating',
   REQUESTING: 'requesting',
   UNVERIFIED: 'unverified',
 };
@@ -27,6 +29,7 @@ export const CERT_STATUS_TYPE = {
 const CertificateStatusAlert = ({ payload }) => {
   const intl = useIntl();
   const dispatch = useDispatch();
+  const [isRequestingCert, setIsRequestingCert] = useState(false);
   const {
     certificateAvailableDate,
     certStatus,
@@ -81,7 +84,8 @@ const CertificateStatusAlert = ({ payload }) => {
       alertProps.buttonMessage = intl.formatMessage(certStatusMessages.viewableButton);
       alertProps.buttonVisible = true;
       alertProps.buttonLink = certURL;
-      alertProps.buttonVariant = 'primary';
+      alertProps.buttonVariant = 'brand';
+      alertProps.buttonClassName = 'robbo-cert-alert-view-btn';
       alertProps.buttonAction = () => {
         sendAlertClickTracking('edx.ui.lms.course_outline.certificate_alert_downloadable_button.clicked');
       };
@@ -89,12 +93,24 @@ const CertificateStatusAlert = ({ payload }) => {
       alertProps.header = intl.formatMessage(certMessages.certStatusDownloadableHeader);
       alertProps.buttonMessage = intl.formatMessage(certStatusMessages.requestableButton);
       alertProps.buttonVisible = true;
-      alertProps.buttonLink = '';
+      alertProps.buttonLink = null;
       alertProps.buttonVariant = 'brand';
-      alertProps.buttonAction = () => {
+      alertProps.buttonAction = async () => {
         sendAlertClickTracking('edx.ui.lms.course_outline.certificate_alert_request_cert_button.clicked');
-        dispatch(requestCert(courseId));
+        setIsRequestingCert(true);
+        try {
+          await dispatch(requestCert(courseId));
+        } finally {
+          setIsRequestingCert(false);
+        }
       };
+    } else if (certStatus === CERT_STATUS_TYPE.GENERATING) {
+      alertProps.header = intl.formatMessage(certMessages.certStatusGeneratingHeader);
+      alertProps.buttonMessage = intl.formatMessage(certMessages.certStatusGeneratingButton);
+      alertProps.buttonVisible = true;
+      alertProps.buttonLink = null;
+      alertProps.buttonVariant = 'brand';
+      alertProps.buttonClassName = 'robbo-cert-alert-view-btn';
     }
     return alertProps;
   };
@@ -140,6 +156,7 @@ const CertificateStatusAlert = ({ payload }) => {
     case CERT_STATUS_TYPE.EARNED_NOT_AVAILABLE:
     case CERT_STATUS_TYPE.DOWNLOADABLE:
     case CERT_STATUS_TYPE.REQUESTING:
+    case CERT_STATUS_TYPE.GENERATING:
       alertProps = renderCertAwardedStatus();
       break;
     case CERT_STATUS_TYPE.UNVERIFIED:
@@ -151,6 +168,8 @@ const CertificateStatusAlert = ({ payload }) => {
       }
       break;
   }
+
+  const isGeneratingCert = isRequestingCert || certStatus === CERT_STATUS_TYPE.GENERATING;
 
   return (
     <AlertWrapper {...alertProps}>
@@ -165,29 +184,58 @@ const CertificateStatusAlert = ({ payload }) => {
         buttonLink,
         buttonMessage,
         buttonVariant = 'primary',
+        buttonClassName = '',
       }) => (
         <Alert variant={variant}>
           <div className="d-flex flex-column flex-lg-row justify-content-between align-items-center">
             <div className={buttonVisible ? 'col-lg-8' : 'col-auto'}>
               <FontAwesomeIcon icon={icon} className={iconClassName} />
-              <Alert.Heading>{header}</Alert.Heading>
+              <Alert.Heading>
+                {isGeneratingCert
+                  ? intl.formatMessage(certMessages.certStatusGeneratingHeader)
+                  : header}
+              </Alert.Heading>
               {body}
             </div>
             {buttonVisible && (
               <div className="flex-grow-0 pt-3 pt-lg-0">
-                <Button
-<<<<<<< HEAD
-                  variant="brand"
-=======
-                  variant={buttonVariant}
->>>>>>> 96bda5bc (fix(certificates): reload after request and brand CTA button)
-                  href={buttonLink}
-                  onClick={() => {
-                    if (buttonAction) { buttonAction(); }
-                  }}
-                >
-                  {buttonMessage}
-                </Button>
+                {buttonClassName === 'robbo-cert-alert-view-btn' && buttonLink ? (
+                  <span className="robbo-cert-alert-view-btn-wrap">
+                    <Button
+                      variant={buttonVariant}
+                      className={buttonClassName}
+                      href={buttonLink}
+                      onClick={() => {
+                        if (buttonAction) {
+                          buttonAction();
+                        }
+                      }}
+                    >
+                      {buttonMessage}
+                    </Button>
+                  </span>
+                ) : (
+                  <Button
+                    variant={buttonVariant}
+                    className={`${buttonClassName}${isGeneratingCert ? ' robbo-cert-generating-btn' : ''}`}
+                    href={buttonLink || undefined}
+                    disabled={isGeneratingCert}
+                    onClick={async (event) => {
+                      if (buttonAction) {
+                        if (!buttonLink) {
+                          event.preventDefault();
+                          await buttonAction();
+                        } else {
+                          buttonAction();
+                        }
+                      }
+                    }}
+                  >
+                    {isGeneratingCert
+                      ? <GeneratingCertificateButtonLabel />
+                      : buttonMessage}
+                  </Button>
+                )}
               </div>
             )}
           </div>

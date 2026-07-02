@@ -13,6 +13,7 @@ function verifyCertStatusType(status) {
     case CERT_STATUS_TYPE.DOWNLOADABLE:
     case CERT_STATUS_TYPE.EARNED_NOT_AVAILABLE:
     case CERT_STATUS_TYPE.REQUESTING:
+    case CERT_STATUS_TYPE.GENERATING:
     case CERT_STATUS_TYPE.UNVERIFIED:
       return true;
     default:

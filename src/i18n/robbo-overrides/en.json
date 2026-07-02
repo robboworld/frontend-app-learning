@@ -35,5 +35,8 @@
   "robbo.verifiedTab.certificateBullet": "Earn a certificate of completion for your resume.",
   "robbo.verifiedTab.alreadyVerifiedHeading": "You have full access",
   "robbo.verifiedTab.alreadyVerifiedBody": "You can complete graded assignments and qualify for a certificate in this course.",
-  "robbo.verifiedTab.unavailable": "Full access is not available for your enrollment at this time."
+  "robbo.verifiedTab.unavailable": "Full access is not available for your enrollment at this time.",
+  "cert.alert.generating.header": "We're working on it",
+  "cert.alert.generating.body": "Your certificate is being created. This page will update automatically.",
+  "cert.alert.generating.button": "Generating certificate"
 }

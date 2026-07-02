@@ -41,5 +41,8 @@
   "learning.generic.upsell.unlockGradedBullet.gradedAssignments": "оцениваемые задания",
   "learning.generic.upsell.fullAccessBullet": "{fullAccessInBoldText} к материалам курса — в том числе после его окончания",
   "learning.generic.upsell.fullAccessBullet.fullAccess": "Полный доступ",
-  "cert.alert.notPassing.header": "Вы не выполнили необходимые условия в прохождении курса для получения сертификата"
+  "cert.alert.notPassing.header": "Вы не выполнили необходимые условия в прохождении курса для получения сертификата",
+  "cert.alert.generating.header": "Создаём сертификат",
+  "cert.alert.generating.body": "Сертификат формируется. Страница обновится автоматически.",
+  "cert.alert.generating.button": "Генерация сертификата"
 }
