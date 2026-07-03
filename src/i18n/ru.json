@@ -373,7 +373,7 @@
   "progress.assignmentType": "Тип назначения",
   "progress.certificateBody.notAvailable.endDate": "Итоговые оценки и все полученные сертификаты будут доступны после {endDate}.",
   "progress.certificateStatus.courseCelebration.verificationPending": "Ожидается проверка вашего удостоверения личности, и ваш сертификат будет доступен после одобрения.",
-  "progress.certificateStatus.downloadableBody": "Продемонстрируйте свои достижения на LinkedIn или в своем резюме сегодня. Вы можете скачать сертификат сейчас и получить к нему доступ в любое время со своих {dashboardLink} и {profileLink}.",
+  "progress.certificateStatus.downloadableBody": "Продемонстрируйте своё достижение в резюме уже сегодня. Вы можете загрузить свой сертификат сейчас и получить доступ к нему в любое время из вкладки {dashboardLink} и раздела {profileLink}.",
   "progress.certificateStatus.downloadableHeader": "Ваш сертификат доступен!",
   "progress.certificateStatus.inProgressBody": "Похоже, в этом курсе будет больше контента, который будет выпущен в будущем. Следите за обновлениями по электронной почте или заходите на свой курс, чтобы узнать, когда этот контент станет доступен.",
   "progress.certificateStatus.inProgressHeader": "Скоро будет больше контента!",

@@ -44,5 +44,7 @@
   "cert.alert.notPassing.header": "Вы не выполнили необходимые условия в прохождении курса для получения сертификата",
   "cert.alert.generating.header": "Создаём сертификат",
   "cert.alert.generating.body": "Сертификат формируется. Страница обновится автоматически.",
-  "cert.alert.generating.button": "Генерация сертификата"
+  "cert.alert.generating.button": "Генерация сертификата",
+  "courseExit.dashboardLink": "Мои курсы",
+  "progress.certificateStatus.downloadableBody": "Продемонстрируйте своё достижение в резюме уже сегодня. Вы можете загрузить свой сертификат сейчас и получить доступ к нему в любое время из вкладки {dashboardLink} и раздела {profileLink}."
 }
