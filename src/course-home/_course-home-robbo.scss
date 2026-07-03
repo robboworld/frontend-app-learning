@@ -148,6 +148,21 @@ $robbo-dates-today-green: #00af41;
   .alert .btn-brand:not(.robbo-cert-alert-view-btn) {
     @include robbo-course-outline-btn-brand;
   }
+
+  .robbo-cert-progress-download-btn.btn-outline-brand {
+    @include robbo-btn-outline-primary-brand;
+  }
+
+  .robbo-cert-generating-btn.btn-brand {
+    pointer-events: none;
+  }
+
+  .robbo-cert-generating-btn-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
 }
 
 @keyframes robbo-cert-alert-border-spin {

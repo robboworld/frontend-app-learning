@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
@@ -11,6 +11,8 @@ import { useModel } from '../../../generic/model-store';
 import { COURSE_EXIT_MODES, getCourseExitMode } from '../../../courseware/course/course-exit/utils';
 import { DashboardLink, IdVerificationSupportLink, ProfileLink } from '../../../shared/links';
 import { requestCert } from '../../data/thunks';
+import GeneratingCertificateButtonLabel from '../../outline-tab/alerts/certificate-status-alert/GeneratingCertificateButtonLabel';
+import generatingMessages from '../../outline-tab/alerts/certificate-status-alert/messages';
 import messages from './messages';
 import ProgressCertificateStatusSlot from '../../../plugin-slots/ProgressCertificateStatusSlot';
 
@@ -64,6 +66,7 @@ const CertificateStatus = () => {
 
   const dispatch = useDispatch();
   const { administrator } = getAuthenticatedUser();
+  const [isRequestingCert, setIsRequestingCert] = useState(false);
 
   let certStatus;
   let certWebViewUrl;
@@ -110,9 +113,22 @@ const CertificateStatus = () => {
     switch (certStatus) {
       case 'requesting':
         certCase = 'requestable';
-        buttonAction = async () => { await dispatch(requestCert(courseId)); };
+        buttonAction = async () => {
+          setIsRequestingCert(true);
+          try {
+            await dispatch(requestCert(courseId));
+          } finally {
+            setIsRequestingCert(false);
+          }
+        };
         body = intl.formatMessage(messages[`${certCase}Body`]);
         buttonText = intl.formatMessage(messages[`${certCase}Button`]);
+        break;
+
+      case 'generating':
+        certCase = 'generating';
+        body = intl.formatMessage(generatingMessages.certStatusGeneratingBody);
+        buttonText = intl.formatMessage(generatingMessages.certStatusGeneratingButton);
         break;
 
       case 'unverified':
@@ -139,10 +155,7 @@ const CertificateStatus = () => {
         body = (
           <FormattedMessage
             id="progress.certificateStatus.downloadableBody"
-            defaultMessage="
-              Showcase your accomplishment on LinkedIn or your resumé today.
-              You can download your certificate now and access it any time from your
-              {dashboardLink} and {profileLink}."
+            defaultMessage="Showcase your accomplishment on your résumé today. You can download your certificate now and access it any time from the {dashboardLink} tab and {profileLink} section."
             description="Recommending an action for learner when course certificate is available"
             values={{ dashboardLink, profileLink }}
           />
@@ -218,7 +231,10 @@ const CertificateStatus = () => {
     return null;
   }
 
-  const header = intl.formatMessage(messages[`${certCase}Header`]);
+  const isGeneratingCert = isRequestingCert || certStatus === 'generating';
+  const header = isGeneratingCert
+    ? intl.formatMessage(generatingMessages.certStatusGeneratingHeader)
+    : intl.formatMessage(messages[`${certCase}Header`]);
 
   const logCertificateStatusButtonClicked = () => {
     sendTrackEvent('edx.ui.lms.course_progress.certificate_status.clicked', {
@@ -248,18 +264,44 @@ const CertificateStatus = () => {
               {body}
             </Card.Section>
             <Card.Footer>
-              {buttonText && (buttonLocation || buttonAction) && (
+              {isGeneratingCert && (
                 <Button
-                  variant={certCase === 'requestable' ? 'brand' : 'outline-brand'}
-                  onClick={() => {
-                    logCertificateStatusButtonClicked(certStatus);
-                    if (buttonAction) { buttonAction(); }
-                  }}
-                  href={buttonLocation}
+                  variant="brand"
+                  className="robbo-cert-generating-btn"
                   block
+                  disabled
                 >
-                  {buttonText}
+                  <GeneratingCertificateButtonLabel />
                 </Button>
+              )}
+              {!isGeneratingCert && buttonText && (buttonLocation || buttonAction) && (
+                certCase === 'downloadable' ? (
+                  <Button
+                    variant="outline-brand"
+                    className="robbo-cert-progress-download-btn"
+                    onClick={() => {
+                      logCertificateStatusButtonClicked(certStatus);
+                    }}
+                    href={buttonLocation}
+                    block
+                  >
+                    {buttonText}
+                  </Button>
+                ) : (
+                  <Button
+                    variant={certCase === 'requestable' ? 'brand' : 'outline-brand'}
+                    onClick={async () => {
+                      logCertificateStatusButtonClicked(certStatus);
+                      if (buttonAction) {
+                        await buttonAction();
+                      }
+                    }}
+                    href={buttonLocation}
+                    block
+                  >
+                    {buttonText}
+                  </Button>
+                )
               )}
             </Card.Footer>
           </div>
