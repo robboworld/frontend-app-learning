@@ -713,3 +713,23 @@ $robbo-course-outline-brand-btn-hover: $robbo-brand-primary-darker;
     box-shadow: 0 0 0 0.2rem rgba($robbo-brand-primary-dark, 0.45) !important;
   }
 }
+
+// Staff bar: «Посмотреть курс в: Студия» — Paragon `.bg-primary` is still edx-blue.
+[data-testid="instructor-toolbar"] > .bg-primary {
+  background-color: $robbo-brand-primary !important;
+}
+
+[data-testid="instructor-toolbar"] {
+  .btn-inverse-outline-primary {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.85) !important;
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      color: $robbo-brand-primary !important;
+      background-color: #fff !important;
+      border-color: #fff !important;
+    }
+  }
+}
