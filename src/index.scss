@@ -714,9 +714,9 @@ $robbo-course-outline-brand-btn-hover: $robbo-brand-primary-darker;
   }
 }
 
-// Staff bar: «Посмотреть курс в: Студия» — Paragon `.bg-primary` is still edx-blue.
+// Staff bar: «Посмотреть курс в: Студия» — угольный Robbo вместо Paragon/зелёного primary.
 [data-testid="instructor-toolbar"] > .bg-primary {
-  background-color: $robbo-brand-primary !important;
+  background-color: $robbo-brand-coal !important;
 }
 
 [data-testid="instructor-toolbar"] {
@@ -727,7 +727,7 @@ $robbo-course-outline-brand-btn-hover: $robbo-brand-primary-darker;
     &:hover,
     &:focus,
     &:focus-visible {
-      color: $robbo-brand-primary !important;
+      color: $robbo-brand-coal !important;
       background-color: #fff !important;
       border-color: #fff !important;
     }
