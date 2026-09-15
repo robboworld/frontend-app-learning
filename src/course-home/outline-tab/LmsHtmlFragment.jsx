@@ -10,12 +10,21 @@ const LmsHtmlFragment = ({
   ...rest
 }) => {
   const direction = document.documentElement?.getAttribute('dir') || 'ltr';
+  const config = getConfig();
+  const learningStaticBase = (() => {
+    const baseUrl = (config.BASE_URL || '').replace(/\/$/, '');
+    if (baseUrl.startsWith('http://') || baseUrl.startsWith('https://')) {
+      return baseUrl;
+    }
+    const publicPath = (config.PUBLIC_PATH || '/learning').replace(/\/$/, '');
+    return `${window.location.origin}${publicPath.startsWith('/') ? publicPath : `/${publicPath}`}`;
+  })();
   const wholePage = `
     <html dir="${direction}">
       <head>
-        <base href="${getConfig().LMS_BASE_URL}" target="_parent">
-        <link rel="stylesheet" href="/static/${getConfig().LEGACY_THEME_NAME ? `${getConfig().LEGACY_THEME_NAME}/` : ''}css/bootstrap/lms-main.css">
-        <link rel="stylesheet" type="text/css" href="${getConfig().BASE_URL}/static/LmsHtmlFragment.css">
+        <base href="${config.LMS_BASE_URL}" target="_parent">
+        <link rel="stylesheet" href="/static/${config.LEGACY_THEME_NAME ? `${config.LEGACY_THEME_NAME}/` : ''}css/bootstrap/lms-main.css">
+        <link rel="stylesheet" type="text/css" href="${learningStaticBase}/static/LmsHtmlFragment.css">
       </head>
       <body class="${className}">${html}</body>
       <script>
