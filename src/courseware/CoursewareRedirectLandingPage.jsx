@@ -25,6 +25,11 @@ const CoursewareRedirectLandingPage = () => (
         path={DECODE_ROUTES.REDIRECT_SURVEY}
         element={<DecodePageRoute><RedirectPage pattern="/courses/:courseId/survey" mode={REDIRECT_MODES.SURVEY_REDIRECT} /></DecodePageRoute>}
       />
+      {/* Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */}
+      <Route
+        path={DECODE_ROUTES.REDIRECT_ABOUT}
+        element={<DecodePageRoute><RedirectPage pattern="/courses/:courseId/about" mode={REDIRECT_MODES.ABOUT_REDIRECT} /></DecodePageRoute>}
+      />
       <Route
         path={ROUTES.DASHBOARD}
         element={<PageWrap><RedirectPage pattern="/dashboard" mode={REDIRECT_MODES.DASHBOARD_REDIRECT} /></PageWrap>}
