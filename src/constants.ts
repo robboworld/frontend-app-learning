@@ -1,5 +1,8 @@
 export const DECODE_ROUTES = {
   ACCESS_DENIED: '/course/:courseId/access-denied',
+  // Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root.
+  // LMS course about page; without this route "about" is parsed as a sequence id.
+  ABOUT: '/course/:courseId/about',
   HOME: '/course/:courseId/home',
   LIVE: '/course/:courseId/live',
   DATES: '/course/:courseId/dates',
@@ -19,6 +22,7 @@ export const DECODE_ROUTES = {
   ],
   REDIRECT_HOME: 'home/:courseId',
   REDIRECT_SURVEY: 'survey/:courseId',
+  REDIRECT_ABOUT: 'about/:courseId',
 } as const satisfies Readonly<{ [k: string]: string | readonly string[] }>;
 
 export const ROUTES = {
@@ -36,6 +40,7 @@ export const REDIRECT_MODES = {
   CONSENT_REDIRECT: 'consent-redirect',
   HOME_REDIRECT: 'home-redirect',
   SURVEY_REDIRECT: 'survey-redirect',
+  ABOUT_REDIRECT: 'about-redirect',
 } as const satisfies Readonly<{ [k: string]: string }>;
 
 export const VERIFIED_MODES = [
