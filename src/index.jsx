@@ -20,6 +20,7 @@ import OutlineTab from './course-home/outline-tab';
 import { CourseExit } from './courseware/course/course-exit';
 import CoursewareContainer from './courseware';
 import CoursewareRedirectLandingPage from './courseware/CoursewareRedirectLandingPage';
+import RedirectPage from './courseware/RedirectPage';
 import DatesTab from './course-home/dates-tab';
 import GoalUnsubscribe from './course-home/goal-unsubscribe';
 import ProgressTab from './course-home/progress-tab/ProgressTab';
@@ -33,7 +34,7 @@ import PathFixesProvider from './generic/path-fixes';
 import LiveTab from './course-home/live-tab/LiveTab';
 import CourseAccessErrorPage from './generic/CourseAccessErrorPage';
 import DecodePageRoute from './decode-page-route';
-import { DECODE_ROUTES, ROUTES } from './constants';
+import { DECODE_ROUTES, REDIRECT_MODES, ROUTES } from './constants';
 import PreferencesUnsubscribe from './preferences-unsubscribe';
 import PageNotFound from './generic/PageNotFound';
 
@@ -100,6 +101,15 @@ subscribe(APP_READY, () => {
                   element={
                     <PageWrap><PreferencesUnsubscribe /></PageWrap>
                 }
+                />
+                {/* Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */}
+                <Route
+                  path={DECODE_ROUTES.ABOUT}
+                  element={(
+                    <DecodePageRoute>
+                      <RedirectPage pattern="/courses/:courseId/about" mode={REDIRECT_MODES.ABOUT_REDIRECT} />
+                    </DecodePageRoute>
+                  )}
                 />
                 <Route
                   path={DECODE_ROUTES.ACCESS_DENIED}

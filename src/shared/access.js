@@ -30,6 +30,11 @@ export function getAccessDeniedRedirectUrl(courseId, activeTabSlug, courseAccess
     case 'unfulfilled_milestones':
       url = '/redirect/dashboard';
       break;
+    // Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root.
+    // catalog_visibility "about": users who are not enrolled see only the LMS about page.
+    case 'course_about_only':
+      url = `/redirect/about/${courseId}`;
+      break;
     case 'authentication_required':
     case 'enrollment_required':
     default:
