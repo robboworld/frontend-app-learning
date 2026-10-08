@@ -41,5 +41,7 @@
   "robbo.verifiedTab.unavailable": "Full access is not available for your enrollment at this time.",
   "cert.alert.generating.header": "We're working on it",
   "cert.alert.generating.body": "Your certificate is being created. This page will update automatically.",
-  "cert.alert.generating.button": "Generating certificate"
+  "cert.alert.generating.button": "Generating certificate",
+  "robbo.header.studio.label": "Studio",
+  "robbo.header.studio.aria": "Go to Studio"
 }
