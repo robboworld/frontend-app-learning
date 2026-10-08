@@ -48,5 +48,7 @@
   "courseExit.dashboardLink": "Мои курсы",
   "progress.certificateStatus.downloadableBody": "Продемонстрируйте своё достижение в резюме уже сегодня. Вы можете загрузить свой сертификат сейчас и получить доступ к нему в любое время из вкладки {dashboardLink} и раздела {profileLink}.",
   "tours.newUserModal.title": "{welcome} на курс {siteName}!",
-  "tours.newUserModal.title.welcome": "Добро пожаловать"
+  "tours.newUserModal.title.welcome": "Добро пожаловать",
+  "robbo.header.studio.label": "Студия",
+  "robbo.header.studio.aria": "Перейти в Студию"
 }
