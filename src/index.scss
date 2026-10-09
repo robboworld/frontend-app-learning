@@ -609,7 +609,7 @@ $robbo-course-outline-brand-btn-hover: $robbo-brand-primary-darker;
   @include robbo-btn-outline-primary-brand;
 }
 
-// Нижняя / верхняя навигация по юнитам — «Следующий» (Paragon Button as React Router Link → <a>).
+// Нижняя / верхняя навигация по блокам — «Следующий» (Paragon Button as React Router Link → <a>).
 .unit-navigation a.next-button.btn-outline-primary,
 .top-unit-navigation a.next-button.btn-outline-primary {
   @include robbo-btn-outline-primary-brand;
