@@ -3,7 +3,7 @@ import {
   mergeConfig,
   getConfig,
 } from '@edx/frontend-platform';
-import { AppProvider, ErrorPage, PageWrap } from '@edx/frontend-platform/react';
+import { AppProvider, PageWrap } from '@edx/frontend-platform/react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Routes, Route } from 'react-router-dom';
@@ -13,6 +13,9 @@ import { fetchDiscussionTab, fetchLiveTab } from './course-home/data/thunks';
 import DiscussionTab from './course-home/discussion-tab/DiscussionTab';
 
 import messages from './i18n';
+import {
+  initRobboErrors, RobboErrorBoundary, RobboErrorPage, robboErrorsMiddleware,
+} from './robbo-errors';
 import { UserMessagesProvider } from './generic/user-messages';
 
 import './index.scss';
@@ -80,6 +83,9 @@ const initYandexMetrika = () => {
   });
 };
 
+// Robbo: human-readable errors with a code and number (src/robbo-errors).
+initRobboErrors({ app: 'learning' });
+
 subscribe(APP_READY, () => {
   initYandexMetrika();
   const root = createRoot(document.getElementById('root'));
@@ -87,144 +93,148 @@ subscribe(APP_READY, () => {
   root.render(
     <StrictMode>
       <AppProvider store={store}>
-        <Helmet>
-          <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
-        </Helmet>
-        <PathFixesProvider>
-          <NoticesProvider>
-            <UserMessagesProvider>
-              <Routes>
-                <Route path="*" element={<PageWrap><PageNotFound /></PageWrap>} />
-                <Route path={ROUTES.UNSUBSCRIBE} element={<PageWrap><GoalUnsubscribe /></PageWrap>} />
-                <Route path={ROUTES.REDIRECT} element={<PageWrap><CoursewareRedirectLandingPage /></PageWrap>} />
-                <Route
-                  path={ROUTES.PREFERENCES_UNSUBSCRIBE}
-                  element={
-                    <PageWrap><PreferencesUnsubscribe /></PageWrap>
-                }
-                />
-                {/* Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */}
-                <Route
-                  path={DECODE_ROUTES.ABOUT}
-                  element={(
-                    <DecodePageRoute>
-                      <RedirectPage pattern="/courses/:courseId/about" mode={REDIRECT_MODES.ABOUT_REDIRECT} />
-                    </DecodePageRoute>
-                  )}
-                />
-                <Route
-                  path={DECODE_ROUTES.ACCESS_DENIED}
-                  element={<DecodePageRoute><CourseAccessErrorPage /></DecodePageRoute>}
-                />
-                <Route
-                  path={DECODE_ROUTES.HOME}
-                  element={(
-                    <DecodePageRoute>
-                      <TabContainer tab="outline" fetch={fetchOutlineTab} slice="courseHome">
-                        <OutlineTab />
-                      </TabContainer>
-                    </DecodePageRoute>
-              )}
-                />
-                <Route
-                  path={DECODE_ROUTES.LIVE}
-                  element={(
-                    <DecodePageRoute>
-                      <TabContainer tab="lti_live" fetch={fetchLiveTab} slice="courseHome">
-                        <LiveTab />
-                      </TabContainer>
-                    </DecodePageRoute>
-                )}
-                />
-                <Route
-                  path={DECODE_ROUTES.DATES}
-                  element={(
-                    <DecodePageRoute>
-                      <TabContainer tab="dates" fetch={fetchDatesTab} slice="courseHome">
-                        <DatesTab />
-                      </TabContainer>
-                    </DecodePageRoute>
-                )}
-                />
-                <Route
-                  path={DECODE_ROUTES.DISCUSSION}
-                  element={(
-                    <DecodePageRoute>
-                      <TabContainer tab="discussion" fetch={fetchDiscussionTab} slice="courseHome">
-                        <DiscussionTab />
-                      </TabContainer>
-                    </DecodePageRoute>
-                )}
-                />
-                {DECODE_ROUTES.PROGRESS.map((route) => (
+        <RobboErrorBoundary>
+          <Helmet>
+            <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
+          </Helmet>
+          <PathFixesProvider>
+            <NoticesProvider>
+              <UserMessagesProvider>
+                <Routes>
+                  <Route path="*" element={<PageWrap><PageNotFound /></PageWrap>} />
+                  <Route path={ROUTES.UNSUBSCRIBE} element={<PageWrap><GoalUnsubscribe /></PageWrap>} />
+                  <Route path={ROUTES.REDIRECT} element={<PageWrap><CoursewareRedirectLandingPage /></PageWrap>} />
                   <Route
-                    key={route}
-                    path={route}
+                    path={ROUTES.PREFERENCES_UNSUBSCRIBE}
+                    element={
+                      <PageWrap><PreferencesUnsubscribe /></PageWrap>
+                  }
+                  />
+                  {/* Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */}
+                  <Route
+                    path={DECODE_ROUTES.ABOUT}
                     element={(
                       <DecodePageRoute>
-                        <TabContainer
-                          tab="progress"
-                          fetch={fetchProgressTab}
-                          slice="courseHome"
-                          isProgressTab
-                        >
-                          <ProgressTab />
+                        <RedirectPage pattern="/courses/:courseId/about" mode={REDIRECT_MODES.ABOUT_REDIRECT} />
+                      </DecodePageRoute>
+                    )}
+                  />
+                  <Route
+                    path={DECODE_ROUTES.ACCESS_DENIED}
+                    element={<DecodePageRoute><CourseAccessErrorPage /></DecodePageRoute>}
+                  />
+                  <Route
+                    path={DECODE_ROUTES.HOME}
+                    element={(
+                      <DecodePageRoute>
+                        <TabContainer tab="outline" fetch={fetchOutlineTab} slice="courseHome">
+                          <OutlineTab />
+                        </TabContainer>
+                      </DecodePageRoute>
+                )}
+                  />
+                  <Route
+                    path={DECODE_ROUTES.LIVE}
+                    element={(
+                      <DecodePageRoute>
+                        <TabContainer tab="lti_live" fetch={fetchLiveTab} slice="courseHome">
+                          <LiveTab />
                         </TabContainer>
                       </DecodePageRoute>
                   )}
                   />
-                ))}
-                <Route
-                  path={DECODE_ROUTES.VERIFIED}
-                  element={(
-                    <DecodePageRoute>
-                      <TabContainer tab="verified" fetch={fetchVerifiedTab} slice="courseHome">
-                        <VerifiedTab />
-                      </TabContainer>
-                    </DecodePageRoute>
-                )}
-                />
-                <Route
-                  path={DECODE_ROUTES.COURSE_END}
-                  element={(
-                    <DecodePageRoute>
-                      <TabContainer tab="courseware" fetch={fetchCourse} slice="courseware">
-                        <CourseExit />
-                      </TabContainer>
-                    </DecodePageRoute>
-                )}
-                />
-                {DECODE_ROUTES.COURSEWARE.map((route) => (
                   <Route
-                    key={route}
-                    path={route}
+                    path={DECODE_ROUTES.DATES}
                     element={(
                       <DecodePageRoute>
-                        <CoursewareContainer />
+                        <TabContainer tab="dates" fetch={fetchDatesTab} slice="courseHome">
+                          <DatesTab />
+                        </TabContainer>
                       </DecodePageRoute>
                   )}
                   />
-                ))}
-              </Routes>
-            </UserMessagesProvider>
-          </NoticesProvider>
-        </PathFixesProvider>
+                  <Route
+                    path={DECODE_ROUTES.DISCUSSION}
+                    element={(
+                      <DecodePageRoute>
+                        <TabContainer tab="discussion" fetch={fetchDiscussionTab} slice="courseHome">
+                          <DiscussionTab />
+                        </TabContainer>
+                      </DecodePageRoute>
+                  )}
+                  />
+                  {DECODE_ROUTES.PROGRESS.map((route) => (
+                    <Route
+                      key={route}
+                      path={route}
+                      element={(
+                        <DecodePageRoute>
+                          <TabContainer
+                            tab="progress"
+                            fetch={fetchProgressTab}
+                            slice="courseHome"
+                            isProgressTab
+                          >
+                            <ProgressTab />
+                          </TabContainer>
+                        </DecodePageRoute>
+                    )}
+                    />
+                  ))}
+                  <Route
+                    path={DECODE_ROUTES.VERIFIED}
+                    element={(
+                      <DecodePageRoute>
+                        <TabContainer tab="verified" fetch={fetchVerifiedTab} slice="courseHome">
+                          <VerifiedTab />
+                        </TabContainer>
+                      </DecodePageRoute>
+                  )}
+                  />
+                  <Route
+                    path={DECODE_ROUTES.COURSE_END}
+                    element={(
+                      <DecodePageRoute>
+                        <TabContainer tab="courseware" fetch={fetchCourse} slice="courseware">
+                          <CourseExit />
+                        </TabContainer>
+                      </DecodePageRoute>
+                  )}
+                  />
+                  {DECODE_ROUTES.COURSEWARE.map((route) => (
+                    <Route
+                      key={route}
+                      path={route}
+                      element={(
+                        <DecodePageRoute>
+                          <CoursewareContainer />
+                        </DecodePageRoute>
+                    )}
+                    />
+                  ))}
+                </Routes>
+              </UserMessagesProvider>
+            </NoticesProvider>
+          </PathFixesProvider>
+        </RobboErrorBoundary>
       </AppProvider>
     </StrictMode>,
   );
 });
 
-subscribe(APP_INIT_ERROR, (error) => {
+// PubSub calls back with (topic, data): the error is the second argument.
+subscribe(APP_INIT_ERROR, (message, error) => {
   const root = createRoot(document.getElementById('root'));
 
   root.render(
     <StrictMode>
-      <ErrorPage message={error.message} />
+      <RobboErrorPage error={error} startup />
     </StrictMode>,
   );
 });
 
 initialize({
+  authMiddleware: [robboErrorsMiddleware],
   handlers: {
     config: () => {
       const mfeConfigApiUrl = typeof window !== 'undefined' && window.location?.origin
