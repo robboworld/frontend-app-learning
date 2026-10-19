@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { ErrorPage } from '@edx/frontend-platform/react';
 import { ModalDialog, Modal } from '@openedx/paragon';
 import { shallow } from '@edx/react-unit-test-utils';
 
@@ -10,10 +9,12 @@ import { ContentIFrameLoaderSlot } from '@src/plugin-slots/ContentIFrameLoaderSl
 import * as hooks from './hooks';
 import ContentIFrame, { IFRAME_FEATURE_POLICY, testIDs } from './ContentIFrame';
 
-jest.mock('@edx/frontend-platform/react', () => ({ ErrorPage: 'ErrorPage' }));
+// Robbo: a unit that failed to load shows RobboErrorNotice (src/robbo-errors), not ErrorPage.
+jest.mock('../../../../robbo-errors', () => ({ RobboErrorNotice: 'RobboErrorNotice', uiText: (key) => key }));
 
 jest.mock('@openedx/paragon', () => jest.requireActual('@edx/react-unit-test-utils')
   .mockComponents({
+    Button: 'Button',
     Modal: 'Modal',
     ModalDialog: {
       Body: 'ModalDialog.Body',
@@ -93,10 +94,12 @@ describe('ContentIFrame Component', () => {
     let component;
     describe('if shouldShowContent', () => {
       describe('if not hasLoaded', () => {
-        it('displays errorPage if showError', () => {
+        it('displays the error notice if showError', () => {
           hooks.useIFrameBehavior.mockReturnValueOnce({ ...iframeBehavior, showError: true });
           el = shallow(<ContentIFrame {...props} />);
-          expect(el.instance.findByType(ErrorPage).length).toEqual(1);
+          const [notice] = el.instance.findByType('RobboErrorNotice');
+          expect(notice.props.code).toEqual('UNIT-LOAD');
+          expect(notice.props.details.url).toEqual(props.iframeUrl);
         });
         it('displays PageLoading component if not showError', () => {
           el = shallow(<ContentIFrame {...props} />);
@@ -109,7 +112,7 @@ describe('ContentIFrame Component', () => {
           hooks.useIFrameBehavior.mockReturnValueOnce({ ...iframeBehavior, hasLoaded: true });
           el = shallow(<ContentIFrame {...props} />);
           expect(el.instance.findByType(PageLoading).length).toEqual(0);
-          expect(el.instance.findByType(ErrorPage).length).toEqual(0);
+          expect(el.instance.findByType('RobboErrorNotice').length).toEqual(0);
         });
       });
       it('display iframe with props from hooks', () => {
@@ -133,7 +136,7 @@ describe('ContentIFrame Component', () => {
       it('does not show PageLoading, ErrorPage, or unit-iframe-wrapper', () => {
         el = shallow(<ContentIFrame {...{ ...props, shouldShowContent: false }} />);
         expect(el.instance.findByType(PageLoading).length).toEqual(0);
-        expect(el.instance.findByType(ErrorPage).length).toEqual(0);
+        expect(el.instance.findByType('RobboErrorNotice').length).toEqual(0);
         expect(el.instance.findByTestId(testIDs.contentIFrame).length).toEqual(0);
       });
     });
