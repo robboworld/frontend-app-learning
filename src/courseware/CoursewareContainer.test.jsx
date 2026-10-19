@@ -185,12 +185,14 @@ describe('CoursewareContainer', () => {
     const courseId = defaultCourseId;
 
     function assertLoadedHeader(container) {
-      const courseHeader = container.querySelector('.learning-header');
-      // Ensure the course number and org appear - this proves we loaded course metadata properly.
-      expect(courseHeader).toHaveTextContent(courseHomeMetadata.number);
-      expect(courseHeader).toHaveTextContent(courseHomeMetadata.org);
-      // Ensure the course title is showing up in the header.  This means we loaded course blocks properly.
-      expect(courseHeader.querySelector('.course-title')).toHaveTextContent(courseHomeMetadata.title);
+      // Robbo: RobboHeader (25bdbc66) replaces the learning header and shows no course org/number/title,
+      // so check that it rendered and that the course metadata it was given has been loaded.
+      expect(container.querySelector('.robbo-layout-header')).toBeInTheDocument();
+      expect(store.getState().models.courseHomeMeta[courseId]).toMatchObject({
+        number: courseHomeMetadata.number,
+        org: courseHomeMetadata.org,
+        title: courseHomeMetadata.title,
+      });
     }
 
     function assertSequenceNavigation(container, expectedUnitCount = 3) {

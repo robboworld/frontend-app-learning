@@ -281,7 +281,8 @@ describe('Progress Tab', () => {
       await fetchAndRender();
       expect(screen.getByText('locked feature')).toBeInTheDocument();
       expect(screen.getByText('Unlock to view grades and work towards a certificate.')).toBeInTheDocument();
-      expect(screen.getAllByRole('link', 'Unlock now')).toHaveLength(3);
+      // Robbo: the related links side panel (Dates, Course outline) was removed in dfd6ebfd.
+      expect(screen.getAllByRole('link', 'Unlock now')).toHaveLength(1);
     });
 
     it('sends events on click of upgrade button in locked content header (CourseGradeHeader)', async () => {
@@ -858,7 +859,8 @@ describe('Progress Tab', () => {
       sendTrackEvent.mockClear();
       expect(screen.getByText('Detailed grades')).toBeInTheDocument();
 
-      const outlineLink = screen.getAllByRole('link', { name: 'Course outline' })[0];
+      // Robbo: robbo.progress.courseOutline is lowercase "course outline" (mid-sentence link, 9a028946).
+      const outlineLink = screen.getAllByRole('link', { name: 'course outline' })[0];
       fireEvent.click(outlineLink);
 
       expect(sendTrackEvent).toHaveBeenCalledTimes(1);

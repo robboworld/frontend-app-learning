@@ -55,7 +55,8 @@ describe('NotificationsWidget', () => {
     const userVerifiedMode = Factory.build('verifiedMode');
     await setupDiscussionSidebar({ verifiedMode: userVerifiedMode, isNewDiscussionSidebarViewEnabled: true });
 
-    const sidebarButton = await screen.getByRole('button', { name: /Show sidebar tray/i });
+    // Robbo: the trigger is rendered twice, in the mobile toolbar (below xl) and the desktop one (a09914b7).
+    const [sidebarButton] = await screen.getAllByRole('button', { name: /Show sidebar tray/i });
 
     await act(async () => {
       fireEvent.click(sidebarButton);
