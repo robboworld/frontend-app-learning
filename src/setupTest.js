@@ -78,6 +78,28 @@ global.IntersectionObserver = jest.fn(function mockIntersectionObserver() {
   this.disconnect = jest.fn();
 });
 
+// Robbo: RobboHeader (robbo-layout) uses window.matchMedia for the narrow-viewport nav; jsdom has none.
+// A plain function (not jest.fn) so jest.resetAllMocks() in a test does not strip its return value.
+// With matchMedia present, AppProvider would also start sending a prefers-color-scheme sendTrackEvent that
+// upstream tests never saw (no matchMedia in jsdom); keep that hook a no-op so tracking assertions hold.
+jest.mock('@edx/frontend-platform/react/hooks/paragon/useTrackColorSchemeChoice', () => ({
+  __esModule: true,
+  default: () => {},
+}));
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: (query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: () => {},
+    removeListener: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => false,
+  }),
+});
+
 export const authenticatedUser = {
   userId: 'abc123',
   username: 'MockUser',

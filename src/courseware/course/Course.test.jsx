@@ -13,7 +13,10 @@ import Course from './Course';
 import setupDiscussionSidebar from './test-utils';
 
 jest.mock('@edx/frontend-platform/analytics');
+// Robbo: keep __esModule — moduleNameMapper maps this path to the package root, and without the flag the
+// default import (SequenceExamWrapper) became an object, so every Course render here hit the ErrorBoundary.
 jest.mock('@edx/frontend-lib-special-exams/dist/data/thunks.js', () => ({
+  __esModule: true,
   ...jest.requireActual('@edx/frontend-lib-special-exams/dist/data/thunks.js'),
   checkExamEntry: () => jest.fn(),
 }));
@@ -151,11 +154,13 @@ describe('Course', () => {
   it('handles click to open/close discussions sidebar', async () => {
     await setupDiscussionSidebar();
 
-    waitFor(() => {
+    // Robbo: awaited — left floating, its 1 s timeout rejected inside a later test under load (flaky).
+    await waitFor(() => {
       expect(screen.getByTestId('sidebar-DISCUSSIONS')).toBeInTheDocument();
       expect(screen.getByTestId('sidebar-DISCUSSIONS')).not.toHaveClass('d-none');
 
-      const discussionsTrigger = screen.getByRole('button', { name: /Show discussions tray/i });
+      // Robbo: the trigger is rendered twice, in the mobile toolbar (below xl) and the desktop one (a09914b7).
+      const [discussionsTrigger] = screen.getAllByRole('button', { name: /Show discussions tray/i });
       expect(discussionsTrigger).toBeInTheDocument();
       fireEvent.click(discussionsTrigger);
 
