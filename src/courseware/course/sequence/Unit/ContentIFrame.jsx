@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { ErrorPage } from '@edx/frontend-platform/react';
 import { StrictDict } from '@edx/react-unit-test-utils';
-import { ModalDialog, Modal } from '@openedx/paragon';
+import { Button, ModalDialog, Modal } from '@openedx/paragon';
 import { ContentIFrameLoaderSlot } from '../../../../plugin-slots/ContentIFrameLoaderSlot';
 
 import * as hooks from './hooks';
+import { RobboErrorNotice, uiText } from '../../../../robbo-errors';
 
 /**
  * Feature policy for iframe, allowing access to certain courseware-related media.
@@ -83,7 +83,18 @@ const ContentIFrame = ({
   return (
     <>
       {(shouldShowContent && !hasLoaded) && (
-        showError ? <ErrorPage /> : <ContentIFrameLoaderSlot courseId={courseId} loadingMessage={loadingMessage} />
+        showError ? (
+          // Robbo: the unit's own error page sits in the iframe on the LMS host, unreadable from here;
+          // say so in Russian with a code and number (src/robbo-errors) instead of "An unexpected error
+          // occurred". The server journaled its side of it (SRV-ERROR…) for the same user and time.
+          <RobboErrorNotice
+            code="UNIT-LOAD"
+            details={{ url: iframeUrl, technical: 'the unit iframe loaded without reporting its height (4xx/5xx inside)' }}
+            actions={[
+              <Button key="reload" onClick={() => window.location.reload()}>{uiText('reload')}</Button>,
+            ]}
+          />
+        ) : <ContentIFrameLoaderSlot courseId={courseId} loadingMessage={loadingMessage} />
       )}
       {shouldShowContent && (
         <div className="unit-iframe-wrapper">
