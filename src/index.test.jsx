@@ -1,6 +1,8 @@
 import {
-  APP_INIT_ERROR, APP_READY, subscribe,
+  APP_INIT_ERROR, APP_READY, initialize, subscribe,
 } from '@edx/frontend-platform';
+
+import { initRobboErrors } from './robbo-errors';
 
 // Jest needs this for module resolution
 import * as app from '.'; // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -50,6 +52,14 @@ jest.mock('./course-home/discussion-tab/DiscussionTab', () => 'Discussion Tab');
 jest.mock('./course-home/progress-tab/ProgressTab', () => 'Progress Tab');
 jest.mock('./courseware/course/course-exit', () => ({ CourseExit: 'Course Exit' }));
 jest.mock('./courseware', () => 'Courseware Container');
+// Robbo: src/robbo-errors has its own tests; here only its wiring is checked (the real initRobboErrors
+// would add its own APP_READY subscriber and shift subscribe.mock.calls).
+jest.mock('./robbo-errors', () => ({
+  initRobboErrors: jest.fn(),
+  RobboErrorBoundary: 'RobboErrorBoundary',
+  RobboErrorPage: 'RobboErrorPage',
+  robboErrorsMiddleware: 'robboErrorsMiddleware',
+}));
 
 describe('app registry', () => {
   let getElement;
@@ -76,8 +86,13 @@ describe('app registry', () => {
     const callArgs = subscribe.mock.calls[1];
     expect(callArgs[0]).toEqual(APP_INIT_ERROR);
     const error = { message: 'test-error-message' };
-    callArgs[1](error);
+    // Robbo: PubSub calls back with (topic, data), the error is the second argument.
+    callArgs[1](APP_INIT_ERROR, error);
     const [rendered] = mockRender.mock.calls[0];
     expect(rendered).toMatchSnapshot();
+  });
+  test('Robbo: human-readable errors, axios errors through robboErrorsMiddleware', () => {
+    expect(initRobboErrors).toHaveBeenCalledWith({ app: 'learning' });
+    expect(initialize.mock.calls[0][0].authMiddleware).toEqual(['robboErrorsMiddleware']);
   });
 });
