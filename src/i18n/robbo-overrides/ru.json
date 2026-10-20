@@ -50,5 +50,7 @@
   "tours.newUserModal.title": "{welcome} на курс {siteName}!",
   "tours.newUserModal.title.welcome": "Добро пожаловать",
   "robbo.header.studio.label": "Студия",
-  "robbo.header.studio.aria": "Перейти в Студию"
+  "robbo.header.studio.aria": "Перейти в Студию",
+  "progress.footnotes.droppableAssignments": "{numDroppable, plural, one{Не учитывается # самая низкая оценка} few{Не учитываются # самые низкие оценки} many{Не учитываются # самых низких оценок} other{Не учитываются # самой низкой оценки}} за задания типа «{assignmentType}».",
+  "progress.footnotes.backToContent": "Вернуться к содержанию"
 }
