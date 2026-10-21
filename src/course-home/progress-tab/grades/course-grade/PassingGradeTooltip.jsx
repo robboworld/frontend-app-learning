@@ -1,11 +1,40 @@
 import PropTypes from 'prop-types';
 
 import { getLocale, isRtl, useIntl } from '@edx/frontend-platform/i18n';
-import { OverlayTrigger, Popover } from '@openedx/paragon';
+import { Popover } from '@openedx/paragon';
 
+import GradeBarLabel from './GradeBarLabel';
 import messages from '../messages';
 
-const PassingGradeTooltip = ({ passingGrade, tooltipClassName }) => {
+// Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root.
+// The percent is PassingGradeLabel, laid out next to the bar's SVG (see GradeBarLabel); this part
+// draws the point on the bar.
+export const PassingGradeLabel = ({ passingGrade, tooltipClassName }) => {
+  const isLocaleRtl = isRtl(getLocale());
+  return (
+    <GradeBarLabel
+      id="minimum-grade-tooltip"
+      placement="bottom"
+      position={isLocaleRtl ? 100 - passingGrade : passingGrade}
+      className={tooltipClassName}
+    >
+      <Popover.Content className="text-white">
+        {passingGrade}{isLocaleRtl && '\u200f'}%
+      </Popover.Content>
+    </GradeBarLabel>
+  );
+};
+
+PassingGradeLabel.defaultProps = {
+  tooltipClassName: '',
+};
+
+PassingGradeLabel.propTypes = {
+  passingGrade: PropTypes.number.isRequired,
+  tooltipClassName: PropTypes.string,
+};
+
+const PassingGradeTooltip = ({ passingGrade }) => {
   const intl = useIntl();
   const isLocaleRtl = isRtl(getLocale());
 
@@ -17,22 +46,7 @@ const PassingGradeTooltip = ({ passingGrade, tooltipClassName }) => {
 
   return (
     <>
-      <OverlayTrigger
-        show
-        placement="bottom"
-        overlay={(
-          <Popover id="minimum-grade-tooltip" className={tooltipClassName} aria-hidden="true">
-            <Popover.Content className="text-white">
-              {passingGrade}{isLocaleRtl && '\u200f'}%
-            </Popover.Content>
-          </Popover>
-        )}
-      >
-        <g>
-          <circle cx={`${isLocaleRtl ? 100 - passingGrade : passingGrade}%`} cy="50%" r="8.5" fill="transparent" />
-          <circle className="grade-bar--passing" cx={`${isLocaleRtl ? 100 - passingGrade : passingGrade}%`} cy="50%" r="4.5" />
-        </g>
-      </OverlayTrigger>
+      <circle className="grade-bar--passing" cx={`${isLocaleRtl ? 100 - passingGrade : passingGrade}%`} cy="50%" r="4.5" />
 
       <text
         className="x-small"
@@ -47,13 +61,8 @@ const PassingGradeTooltip = ({ passingGrade, tooltipClassName }) => {
   );
 };
 
-PassingGradeTooltip.defaultProps = {
-  tooltipClassName: '',
-};
-
 PassingGradeTooltip.propTypes = {
   passingGrade: PropTypes.number.isRequired,
-  tooltipClassName: PropTypes.string,
 };
 
 export default PassingGradeTooltip;
