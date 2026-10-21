@@ -32,6 +32,63 @@ $robbo-grade-bar-passing-fill: $robbo-brand-primary-dark;
   margin: 0 !important;
 }
 
+// Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root.
+// Percent bubbles laid out in one box with the bar (GradeBarLabel.jsx), so they move with it.
+// The bar's points are in the middle of the 100px SVG (GradeBar.jsx); a bubble stops an arrow
+// short of the 8.5px ring around a point, as Popper placed it before.
+$grade-bar-point-y: 50px;
+$grade-bar-point-ring: 8.5px;
+$grade-bar-half-arrow: calc(#{$popover-arrow-width} / 2);
+
+.grade-bar-box {
+  position: relative;
+
+  .grade-bar {
+    display: block;
+  }
+}
+
+.grade-bar__label {
+  --grade-bar-label-x: -50%;
+  --grade-bar-label-y: 0;
+
+  position: absolute;
+  margin: 0;
+  transform: translate(var(--grade-bar-label-x), var(--grade-bar-label-y));
+
+  &.bs-popover-top {
+    --grade-bar-label-y: -100%;
+
+    top: calc(#{$grade-bar-point-y - $grade-bar-point-ring} - #{$popover-arrow-height});
+  }
+
+  &.bs-popover-bottom {
+    top: calc(#{$grade-bar-point-y + $grade-bar-point-ring} + #{$popover-arrow-height});
+  }
+
+  .arrow {
+    left: calc(50% - #{$grade-bar-half-arrow});
+  }
+
+  // Near the ends of the bar the bubble leans inwards; the arrow stays on the point.
+  &--start {
+    --grade-bar-label-x: #{-$popover-arrow-width};
+
+    .arrow {
+      left: $grade-bar-half-arrow;
+    }
+  }
+
+  &--end {
+    --grade-bar-label-x: calc(-100% + #{$popover-arrow-width});
+
+    .arrow {
+      left: auto;
+      right: $grade-bar-half-arrow;
+    }
+  }
+}
+
 #minimum-grade-tooltip {
   background-color: $robbo-grade-bar-passing-fill !important;
 
