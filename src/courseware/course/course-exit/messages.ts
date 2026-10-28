@@ -26,6 +26,12 @@ const messages = defineMessages({
     defaultMessage: 'Final grades and any earned certificates are scheduled to be available after {endDate}.',
     description: 'Shown for learners who have finished a course before grades and certificates are available.',
   },
+  // Robbo: the course has no end date, so there is no date to show
+  robboCertificateNotAvailableNoEndDateBody: {
+    id: 'robbo.courseCelebration.certificateBody.notAvailable.noEndDate',
+    defaultMessage: 'Final grades and any earned certificates will be available after the course ends. The end date has not been set yet.',
+    description: 'Shown instead of the end date when grades and certificates are not available yet and the course has no end date.',
+  },
   certificateHeaderUnverified: {
     id: 'courseCelebration.certificateHeader.unverified',
     defaultMessage: 'You must complete verification to receive your certificate.',

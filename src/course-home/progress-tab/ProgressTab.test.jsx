@@ -1345,6 +1345,45 @@ describe('Progress Tab', () => {
         { exact: false },
       )).toBeInTheDocument();
     });
+
+    // Robbo: a course without an end date must not show 1 January 1970
+    it('Shows not available messaging without a date when the course has no end date', async () => {
+      setMetadata({
+        can_view_certificate: false,
+        is_enrolled: true,
+      });
+      setTabData({
+        end: null,
+        certificate_data: undefined,
+      });
+      await fetchAndRender();
+      expect(screen.getByText('Certificate status')).toBeInTheDocument();
+      expect(screen.getByText('Final grades and any earned certificates will be available after the course ends. The end date has not been set yet.')).toBeInTheDocument();
+      expect(screen.queryByText('1970', { exact: false })).not.toBeInTheDocument();
+    });
+
+    it('Shows only certificate_available_date to a passing learner when the course has no end date', async () => {
+      setMetadata({
+        can_view_certificate: false,
+        is_enrolled: true,
+      });
+      setTabData({
+        end: null,
+        user_has_passing_grade: true,
+        certificate_data: {
+          cert_status: 'earned_but_not_available',
+          certificate_available_date: overmorrow.toISOString(),
+        },
+      });
+      await fetchAndRender();
+      expect(screen.getByText(`Final grades and any earned certificates are scheduled to be available after ${overmorrow.toLocaleDateString('en-us', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })}.`)).toBeInTheDocument();
+      expect(screen.queryByText('This course ends on', { exact: false })).not.toBeInTheDocument();
+      expect(screen.queryByText('1970', { exact: false })).not.toBeInTheDocument();
+    });
   });
 
   describe('Credit Information', () => {

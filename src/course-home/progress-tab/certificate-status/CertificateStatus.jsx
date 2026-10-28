@@ -169,17 +169,22 @@ const CertificateStatus = () => {
 
       case 'earned_but_not_available':
         certCase = 'notAvailable';
-        endDate = <FormattedDate value={end} day="numeric" month="long" year="numeric" />;
         certAvailabilityDate = <FormattedDate value={certificateAvailableDate} day="numeric" month="long" year="numeric" />;
-        body = (
-          <FormattedMessage
-            id="progress.certificateStatus.notAvailable.endDate"
-            defaultMessage="This course ends on {endDate}. Final grades and any earned certificates are
-            scheduled to be available after {certAvailabilityDate}."
-            description="This shown for leaner when they are eligible for certifcate but it't not available yet, it could because leaners just finished the course quickly!"
-            values={{ endDate, certAvailabilityDate }}
-          />
-        );
+        // Robbo: a course without an end date has no «ends on» part (null would be formatted as 1 January 1970)
+        if (end) {
+          endDate = <FormattedDate value={end} day="numeric" month="long" year="numeric" />;
+          body = (
+            <FormattedMessage
+              id="progress.certificateStatus.notAvailable.endDate"
+              defaultMessage="This course ends on {endDate}. Final grades and any earned certificates are
+              scheduled to be available after {certAvailabilityDate}."
+              description="This shown for leaner when they are eligible for certifcate but it't not available yet, it could because leaners just finished the course quickly!"
+              values={{ endDate, certAvailabilityDate }}
+            />
+          );
+        } else {
+          body = intl.formatMessage(messages.notAvailableEndDateBody, { endDate: certAvailabilityDate });
+        }
         break;
 
       case 'audit_passing':
@@ -200,13 +205,18 @@ const CertificateStatus = () => {
         // regardless of passing or nonpassing status
         if (!canViewCertificate) {
           certCase = 'notAvailable';
-          endDate = intl.formatDate(end, {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            ...timezoneFormatArgs,
-          });
-          body = intl.formatMessage(messages.notAvailableEndDateBody, { endDate });
+          // Robbo: no end date — say so instead of formatting null as 1 January 1970
+          if (end) {
+            endDate = intl.formatDate(end, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              ...timezoneFormatArgs,
+            });
+            body = intl.formatMessage(messages.notAvailableEndDateBody, { endDate });
+          } else {
+            body = intl.formatMessage(messages.robboNotAvailableNoEndDateBody);
+          }
         } else {
           certCase = null;
           certEventName = 'no_certificate_status';

@@ -121,19 +121,24 @@ const CourseCelebration = () => {
       footnote = <DashboardFootnote variant={visitEvent} />;
       break;
     case 'earned_but_not_available': {
-      const endDate = <FormattedDate value={end} day="numeric" month="long" year="numeric" />;
       const certAvailableDate = <FormattedDate value={certificateAvailableDate} day="numeric" month="long" year="numeric" />;
       certHeader = intl.formatMessage(messages.certificateHeaderNotAvailable);
+      // Robbo: a course without an end date has no «ends on» part (null would be formatted as 1 January 1970)
       message = (
         <>
           <p>
-            <FormattedMessage
-              id="courseCelebration.certificateBody.notAvailable.endDate.v2"
-              defaultMessage="This course ends on {endDate}. Final grades and any earned certificates are
-              scheduled to be available after {certAvailableDate}."
-              values={{ endDate, certAvailableDate }}
-              description="This shown for leaner when they are eligible for certifcate but it't not available yet, it could because leaners just finished the course quickly!"
-            />
+            {end ? (
+              <FormattedMessage
+                id="courseCelebration.certificateBody.notAvailable.endDate.v2"
+                defaultMessage="This course ends on {endDate}. Final grades and any earned certificates are
+                scheduled to be available after {certAvailableDate}."
+                values={{
+                  endDate: <FormattedDate value={end} day="numeric" month="long" year="numeric" />,
+                  certAvailableDate,
+                }}
+                description="This shown for leaner when they are eligible for certifcate but it't not available yet, it could because leaners just finished the course quickly!"
+              />
+            ) : intl.formatMessage(messages.certificateNotAvailableEndDateBody, { endDate: certAvailableDate })}
           </p>
           <p>
             {intl.formatMessage(messages.certificateNotAvailableBodyAccessCert)}
@@ -252,7 +257,8 @@ const CourseCelebration = () => {
         //  to cover the same cases.
         visitEvent = 'celebration_with_unavailable_cert';
         certHeader = intl.formatMessage(messages.certificateHeaderNotAvailable);
-        const endDate = intl.formatDate(end, {
+        // Robbo: no end date — say so instead of formatting null as 1 January 1970
+        const endDate = end && intl.formatDate(end, {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
@@ -261,7 +267,9 @@ const CourseCelebration = () => {
         message = (
           <>
             <p>
-              {intl.formatMessage(messages.certificateNotAvailableEndDateBody, { endDate })}
+              {endDate
+                ? intl.formatMessage(messages.certificateNotAvailableEndDateBody, { endDate })
+                : intl.formatMessage(messages.robboCertificateNotAvailableNoEndDateBody)}
             </p>
             <p>
               {intl.formatMessage(messages.certificateNotAvailableBodyAccessCert)}
