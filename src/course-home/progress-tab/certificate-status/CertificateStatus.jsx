@@ -99,7 +99,28 @@ const CertificateStatus = () => {
   // state (e.g. learners who have been added to a course's allowlist), so we need to
   // skip grade validation for these learners
   const certIsDownloadable = certStatus === 'downloadable';
-  if (mode === COURSE_EXIT_MODES.disabled) {
+  // Robbo: a paid certificate. Its status is not a «celebration» one, so it goes before the course exit modes.
+  const robboOffer = certStatus === 'robbo_purchase' ? certificateData.robboOffer : null;
+  if (robboOffer && isEnrolled) {
+    certCase = 'robboPurchase';
+    certEventName = `robbo_purchase_${robboOffer.state}`;
+    const offerValues = {
+      percent: robboOffer.percent,
+      minPercent: robboOffer.minPercent,
+      price: robboOffer.priceDisplay,
+    };
+    if (robboOffer.state === 'below_threshold') {
+      body = intl.formatMessage(messages.robboPurchaseBelowThresholdBody, offerValues);
+    } else if (robboOffer.state === 'pending') {
+      body = intl.formatMessage(messages.robboPurchasePendingBody);
+      buttonLocation = `${getConfig().LMS_BASE_URL}${robboOffer.receiptUrl}`;
+      buttonText = intl.formatMessage(messages.robboPurchasePendingButton);
+    } else {
+      body = intl.formatMessage(messages.robboPurchaseAvailableBody, offerValues);
+      buttonLocation = `${getConfig().LMS_BASE_URL}${robboOffer.checkoutUrl}`;
+      buttonText = intl.formatMessage(messages.robboPurchaseAvailableButton);
+    }
+  } else if (mode === COURSE_EXIT_MODES.disabled) {
     certEventName = 'certificate_status_disabled';
   } else if (mode === COURSE_EXIT_MODES.nonPassing && !certIsDownloadable) {
     certCase = 'notPassing';
@@ -299,7 +320,7 @@ const CertificateStatus = () => {
                   </Button>
                 ) : (
                   <Button
-                    variant={certCase === 'requestable' ? 'brand' : 'outline-brand'}
+                    variant={certCase === 'requestable' || certCase === 'robboPurchase' ? 'brand' : 'outline-brand'}
                     onClick={async () => {
                       logCertificateStatusButtonClicked(certStatus);
                       if (buttonAction) {

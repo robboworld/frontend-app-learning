@@ -995,6 +995,56 @@ describe('Progress Tab', () => {
         });
       });
 
+      // Robbo: paid certificate (edx-platform robbo_certificates.offers)
+      const robboOffer = (state) => ({
+        state,
+        price: '990.00',
+        currency: 'RUB',
+        price_display: '990 ₽',
+        percent: 84,
+        min_percent: 90,
+        checkout_url: `/robbo/certificates/buy/${courseId}/`,
+        receipt_url: state === 'pending' ? '/checkout/receipt/?order_number=ROBBO-1' : null,
+      });
+
+      it('Displays the paid certificate offer with its price', async () => {
+        setTabData({
+          certificate_data: { cert_status: 'robbo_purchase', robbo_offer: robboOffer('available') },
+          user_has_passing_grade: true,
+        });
+        await fetchAndRender();
+        expect(screen.getByText('You passed the course with 84%. You can get a certificate for 990 ₽.')).toBeInTheDocument();
+        expect(screen.getByText('Get a certificate').closest('a')).toHaveAttribute(
+          'href',
+          `http://localhost:18000/robbo/certificates/buy/${courseId}/`,
+        );
+        expect(sendTrackEvent).toHaveBeenCalledWith('edx.ui.lms.course_progress.visited', expect.objectContaining({
+          certificate_status_variant: 'robbo_purchase_available',
+        }));
+      });
+
+      it('Displays the paid certificate threshold without a button', async () => {
+        setTabData({
+          certificate_data: { cert_status: 'robbo_purchase', robbo_offer: robboOffer('below_threshold') },
+          user_has_passing_grade: true,
+        });
+        await fetchAndRender();
+        expect(screen.getByText('A certificate is given for a result of 90% or more. Your result is 84%.')).toBeInTheDocument();
+        expect(screen.queryByText('Get a certificate')).not.toBeInTheDocument();
+      });
+
+      it('Links a started certificate payment to its receipt', async () => {
+        setTabData({
+          certificate_data: { cert_status: 'robbo_purchase', robbo_offer: robboOffer('pending') },
+          user_has_passing_grade: true,
+        });
+        await fetchAndRender();
+        expect(screen.getByText('Check the payment').closest('a')).toHaveAttribute(
+          'href',
+          'http://localhost:18000/checkout/receipt/?order_number=ROBBO-1',
+        );
+      });
+
       it('Displays verify identity link', async () => {
         setTabData({
           certificate_data: { cert_status: 'unverified' },

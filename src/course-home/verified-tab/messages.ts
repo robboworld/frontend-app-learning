@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  *
  * Part of the Robbo Open edX MFE overrides. See NOTICE at repository root.
+ * Ids with «.v2»: the text changed meaning (no «preview mode», no «graded assignments») — new ids keep old
+ * translations from showing up.
  */
 import { defineMessages } from '@edx/frontend-platform/i18n';
 
@@ -18,14 +20,24 @@ const messages = defineMessages({
     description: 'Heading on the full-access upgrade tab',
   },
   body: {
-    id: 'robbo.verifiedTab.body',
-    defaultMessage: 'You are enrolled in preview mode. Get full access to complete graded assignments and earn a certificate.',
-    description: 'Intro paragraph on the full-access upgrade tab',
+    id: 'robbo.verifiedTab.body.v2',
+    defaultMessage: 'You are learning for free. Full access opens:',
+    description: 'Intro paragraph on the full-access upgrade tab, followed by what full access includes',
   },
-  certificateBullet: {
-    id: 'robbo.verifiedTab.certificateBullet',
-    defaultMessage: 'Earn a certificate of completion for your resume.',
-    description: 'Benefit bullet about the course certificate without external link',
+  includePaidContent: {
+    id: 'robbo.verifiedTab.include.paidContent',
+    defaultMessage: 'All course materials, including locked sections and assignments',
+    description: 'What full access includes: the course has parts for full access only',
+  },
+  includeCertificate: {
+    id: 'robbo.verifiedTab.include.certificate',
+    defaultMessage: 'The course completion certificate at no extra cost',
+    description: 'What full access includes: the paid certificate is free with full access',
+  },
+  includeFullAccess: {
+    id: 'robbo.verifiedTab.include.fullAccess',
+    defaultMessage: 'Full access to the whole course',
+    description: 'What full access includes when the course sets nothing more specific',
   },
   alreadyVerifiedHeading: {
     id: 'robbo.verifiedTab.alreadyVerifiedHeading',
@@ -33,8 +45,8 @@ const messages = defineMessages({
     description: 'Heading when learner already has full access',
   },
   alreadyVerifiedBody: {
-    id: 'robbo.verifiedTab.alreadyVerifiedBody',
-    defaultMessage: 'You can complete graded assignments and qualify for a certificate in this course.',
+    id: 'robbo.verifiedTab.alreadyVerifiedBody.v2',
+    defaultMessage: 'All course materials are open to you.',
     description: 'Body when learner already has full access',
   },
   unavailable: {

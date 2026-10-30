@@ -32,10 +32,7 @@
   "robbo.dates.courseArchivedDescription": "Курс в архиве: материалы доступны для просмотра, но курс больше не активен.",
   "robbo.verifiedTab.title": "Полный доступ",
   "robbo.verifiedTab.heading": "Оформление полного доступа",
-  "robbo.verifiedTab.body": "Вы записаны на курс в ознакомительном режиме. Оформите полный доступ, чтобы выполнять оцениваемые задания и получить сертификат.",
-  "robbo.verifiedTab.certificateBullet": "Получите сертификат об окончании курса — его можно указать в резюме.",
   "robbo.verifiedTab.alreadyVerifiedHeading": "У вас полный доступ",
-  "robbo.verifiedTab.alreadyVerifiedBody": "Вы можете выполнять оцениваемые задания и претендовать на сертификат по этому курсу.",
   "robbo.verifiedTab.unavailable": "Сейчас полный доступ для вашей записи на курс недоступен.",
   "learning.upgradeButton.buttonText": "Оформить полный доступ за {pricing}",
   "learning.generic.upsell.unlockGradedBullet": "Доступ ко всем активностям курса, включая {gradedAssignmentsInBoldText}",
@@ -59,5 +56,16 @@
   "robbo.header.studio.label": "Студия",
   "robbo.header.studio.aria": "Перейти в Студию",
   "progress.footnotes.droppableAssignments": "{numDroppable, plural, one{Не учитывается # самая низкая оценка} few{Не учитываются # самые низкие оценки} many{Не учитываются # самых низких оценок} other{Не учитываются # самой низкой оценки}} за задания типа «{assignmentType}».",
-  "progress.footnotes.backToContent": "Вернуться к содержанию"
+  "progress.footnotes.backToContent": "Вернуться к содержанию",
+  "robbo.progress.certificateStatus.purchaseHeader": "Сертификат",
+  "robbo.progress.certificateStatus.purchaseAvailableBody": "Курс пройден на {percent} %. Сертификат можно оформить за {price}.",
+  "robbo.progress.certificateStatus.purchaseAvailableButton": "Оформить сертификат",
+  "robbo.progress.certificateStatus.purchaseBelowThresholdBody": "Сертификат выдаётся при результате от {minPercent} %. Сейчас у вас {percent} %.",
+  "robbo.progress.certificateStatus.purchasePendingBody": "Оплата обрабатывается. Сертификат появится здесь через несколько минут после оплаты.",
+  "robbo.progress.certificateStatus.purchasePendingButton": "Проверить оплату",
+  "robbo.verifiedTab.body.v2": "Вы учитесь бесплатно. Полный доступ откроет:",
+  "robbo.verifiedTab.include.paidContent": "Все материалы курса, в том числе закрытые разделы и задания",
+  "robbo.verifiedTab.include.certificate": "Сертификат о прохождении курса без доплаты",
+  "robbo.verifiedTab.include.fullAccess": "Полный доступ ко всему курсу",
+  "robbo.verifiedTab.alreadyVerifiedBody.v2": "Все материалы курса открыты для вас."
 }
