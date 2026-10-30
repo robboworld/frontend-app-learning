@@ -14,10 +14,6 @@ import { Card } from '@openedx/paragon';
 
 import { useModel } from '../../generic/model-store';
 import UpgradeButton from '../../generic/upgrade-button/UpgradeButton';
-import {
-  FullAccessBullet,
-  UnlockGradedBullet,
-} from '../../generic/upsell-bullets/UpsellBullets';
 import { VERIFIED_MODES } from '../../constants';
 import messages from './messages';
 
@@ -30,6 +26,8 @@ const VerifiedTab = () => {
     org,
     verifiedMode,
     enrollmentMode: metaEnrollmentMode,
+    // What full access gives in this course (edx-platform robbo_payments/pages.py full_access_includes)
+    robboFullAccessIncludes,
   } = useModel('courseHomeMeta', courseId);
 
   const { offer } = useModel('verified', courseId);
@@ -39,6 +37,12 @@ const VerifiedTab = () => {
   }
 
   const enrollmentMode = metaEnrollmentMode;
+  const includeMessages = {
+    paid_content: messages.includePaidContent,
+    certificate: messages.includeCertificate,
+  };
+  const includes = (robboFullAccessIncludes || []).filter((key) => includeMessages[key]);
+  const bullets = includes.length ? includes.map((key) => includeMessages[key]) : [messages.includeFullAccess];
   const isVerifiedEnrollment = enrollmentMode && VERIFIED_MODES.includes(enrollmentMode);
 
   const logUpgradeClick = () => {
@@ -73,19 +77,18 @@ const VerifiedTab = () => {
             <h2 className="h3 mb-3">{intl.formatMessage(messages.heading)}</h2>
             <p className="mb-4">{intl.formatMessage(messages.body)}</p>
             <ul className="fa-ul mb-4 course-verified-tab__benefits">
-              <li className="upsell-bullet">
-                <span className="fa-li"><FontAwesomeIcon icon={faCheck} /></span>
-                {intl.formatMessage(messages.certificateBullet)}
-              </li>
-              <UnlockGradedBullet />
-              <FullAccessBullet />
+              {bullets.map((message) => (
+                <li className="upsell-bullet" key={message.id}>
+                  <span className="fa-li"><FontAwesomeIcon icon={faCheck} /></span>
+                  {intl.formatMessage(message)}
+                </li>
+              ))}
             </ul>
             <UpgradeButton
               verifiedMode={verifiedMode}
               offer={offer}
               onClick={logUpgradeClick}
               size="lg"
-              block
               className="course-verified-tab__upgrade-btn"
             />
           </Card.Section>

@@ -177,8 +177,15 @@ $robbo-dates-today-green: #00af41;
     padding-left: 1.5rem;
   }
 
-  &__upgrade-btn {
-    max-width: 24rem;
+  // The price must not break off onto its own line: the button takes its text's width
+  &__upgrade-btn.btn {
+    width: auto;
+    white-space: nowrap;
+
+    @media (max-width: 575.98px) {
+      width: 100%;
+      white-space: normal;
+    }
   }
 
   &__unavailable {

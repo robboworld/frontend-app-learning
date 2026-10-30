@@ -107,6 +107,37 @@ const messages = defineMessages({
     defaultMessage: 'In order to generate a certificate for this course, you must complete the ID verification process.',
     description: 'Body text when the learner needs to do verification to earn a certifcate',
   },
+  // Robbo: paid certificate (edx-platform robbo_certificates.offers, cert status «robbo_purchase»)
+  robboPurchaseHeader: {
+    id: 'robbo.progress.certificateStatus.purchaseHeader',
+    defaultMessage: 'Certificate',
+    description: 'Header of the progress page certificate block when the course certificate is paid',
+  },
+  robboPurchaseAvailableBody: {
+    id: 'robbo.progress.certificateStatus.purchaseAvailableBody',
+    defaultMessage: 'You passed the course with {percent}%. You can get a certificate for {price}.',
+    description: 'The learner passed a course with a paid certificate and can buy it',
+  },
+  robboPurchaseAvailableButton: {
+    id: 'robbo.progress.certificateStatus.purchaseAvailableButton',
+    defaultMessage: 'Get a certificate',
+    description: 'Button that opens the paid certificate checkout',
+  },
+  robboPurchaseBelowThresholdBody: {
+    id: 'robbo.progress.certificateStatus.purchaseBelowThresholdBody',
+    defaultMessage: 'A certificate is given for a result of {minPercent}% or more. Your result is {percent}%.',
+    description: 'The learner passed the course but is below the grade needed for the paid certificate',
+  },
+  robboPurchasePendingBody: {
+    id: 'robbo.progress.certificateStatus.purchasePendingBody',
+    defaultMessage: 'Your payment is being processed. The certificate will appear here a few minutes after the payment.',
+    description: 'The learner started paying for the certificate a moment ago',
+  },
+  robboPurchasePendingButton: {
+    id: 'robbo.progress.certificateStatus.purchasePendingButton',
+    defaultMessage: 'Check the payment',
+    description: 'Button that opens the receipt of the started certificate payment',
+  },
 });
 
 export default messages;
