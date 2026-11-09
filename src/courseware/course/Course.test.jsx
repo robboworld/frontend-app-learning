@@ -1,3 +1,5 @@
+/** Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */
+
 import React from 'react';
 
 import { Factory } from 'rosie';
@@ -196,15 +198,14 @@ describe('Course', () => {
     rerender(null);
   });
 
-  it('handles click to open/close notification tray', async () => {
+  // Robbo: the notifications tray is not offered (sidebars/index.js), only the discussions button is shown.
+  it('does not show the notification tray button', async () => {
     await setupDiscussionSidebar();
-    waitFor(() => {
-      const notificationShowButton = screen.findByRole('button', { name: /Show notification tray/i });
-      expect(screen.queryByRole('region', { name: /notification tray/i })).not.toBeInTheDocument();
-      fireEvent.click(notificationShowButton);
-      expect(screen.queryByRole('region', { name: /notification tray/i })).toBeInTheDocument();
-      expect(screen.queryByRole('region', { name: /notification tray/i })).not.toHaveClass('d-none');
+    await waitFor(() => {
+      expect(screen.getAllByRole('button', { name: /Show discussions tray/i }).length).toBeGreaterThan(0);
     });
+    expect(screen.queryByRole('button', { name: /Show notification tray/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: /notification tray/i })).not.toBeInTheDocument();
   });
 
   it('renders course breadcrumbs as expected', async () => {

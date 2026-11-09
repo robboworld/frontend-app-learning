@@ -1,3 +1,5 @@
+/** Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */
+
 import { breakpoints, useWindowSize } from '@openedx/paragon';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -10,7 +12,6 @@ import { getLocalStorage, setLocalStorage } from '@src/data/localStorage';
 import { getCoursewareOutlineSidebarSettings } from '../../data/selectors';
 
 import * as discussionsSidebar from './sidebars/discussions';
-import * as notificationsSidebar from './sidebars/notifications';
 import SidebarContext from './SidebarContext';
 import { SIDEBARS } from './sidebars';
 
@@ -19,7 +20,6 @@ const SidebarProvider = ({
   unitId,
   children,
 }) => {
-  const { verifiedMode } = useModel('courseHomeMeta', courseId);
   const topic = useModel('discussionTopics', unitId);
   const isUnitHasDiscussionTopics = topic?.id && topic?.enabledInContext;
   const shouldDisplayFullScreen = useWindowSize().width < breakpoints.extraLarge.minWidth;
@@ -28,11 +28,11 @@ const SidebarProvider = ({
   const { alwaysOpenAuxiliarySidebar } = useSelector(getCoursewareOutlineSidebarSettings);
   const isInitiallySidebarOpen = shouldDisplaySidebarOpen || query.get('sidebar') === 'true';
 
-  let initialSidebar = shouldDisplayFullScreen ? getLocalStorage(`sidebar.${courseId}`) : null;
+  // Robbo: ignore a stored sidebar that is no longer offered (the removed notifications tray).
+  const storedSidebar = getLocalStorage(`sidebar.${courseId}`);
+  let initialSidebar = shouldDisplayFullScreen && SIDEBARS[storedSidebar] ? storedSidebar : null;
   if (!shouldDisplayFullScreen && isInitiallySidebarOpen && alwaysOpenAuxiliarySidebar) {
-    initialSidebar = isUnitHasDiscussionTopics
-      ? SIDEBARS[discussionsSidebar.ID].ID
-      : verifiedMode && SIDEBARS[notificationsSidebar.ID].ID;
+    initialSidebar = isUnitHasDiscussionTopics ? SIDEBARS[discussionsSidebar.ID].ID : null;
   }
   const [currentSidebar, setCurrentSidebar] = useState(initialSidebar);
   const [notificationStatus, setNotificationStatus] = useState(getLocalStorage(`notificationStatus.${courseId}`));
