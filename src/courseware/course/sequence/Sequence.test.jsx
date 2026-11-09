@@ -1,9 +1,11 @@
+/** Modifications Copyright (C) 2026 Robbo. See NOTICE at repository root. */
+
 import PropTypes from 'prop-types';
 import { Factory } from 'rosie';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { breakpoints } from '@openedx/paragon';
 import {
-  loadUnit, render, screen, fireEvent, waitFor, initializeTestStore, act,
+  loadUnit, render, screen, fireEvent, waitFor, initializeTestStore,
 } from '../../../setupTest';
 import SidebarContext from '../sidebar/SidebarContext';
 import Sequence from './Sequence';
@@ -444,27 +446,14 @@ describe('Sequence', () => {
     });
   });
 
+  // Robbo: the notifications tray is removed from SIDEBARS, so even a stored 'NOTIFICATIONS' sidebar renders nothing.
   describe('notification feature', () => {
-    it('renders notification tray in sequence', async () => {
+    it('does not render notification tray even if it is the current sidebar', async () => {
       render(<SidebarWrapper contextValue={{ courseId: mockData.courseId, currentSidebar: 'NOTIFICATIONS', toggleSidebar: () => null }} />, { wrapWithRouter: true });
-      waitFor(async () => expect(await screen.findByText('Notifications')).toBeInTheDocument());
-    });
-
-    it('handles click on notification tray close button', async () => {
-      const toggleNotificationTray = jest.fn();
-      render(<SidebarWrapper contextValue={{ courseId: mockData.courseId, currentSidebar: 'NOTIFICATIONS', toggleSidebar: toggleNotificationTray }} />, { wrapWithRouter: true });
-      act(async () => {
-        const notificationCloseIconButton = await screen.findByRole('button', { name: /Close notification tray/i });
-        fireEvent.click(notificationCloseIconButton);
-        expect(toggleNotificationTray).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(screen.queryByText('Loading learning sequence...')).not.toBeInTheDocument();
       });
-    });
-
-    it('does not render notification tray in sequence by default if in responsive view', async () => {
-      global.innerWidth = breakpoints.medium.maxWidth;
-      const { container } = render(<Sequence {...mockData} />, { wrapWithRouter: true });
-      // unable to test the absence of 'Notifications' by finding it by text, using the class of the tray instead:
-      expect(container).not.toHaveClass('notification-tray-container');
+      expect(screen.queryByRole('region', { name: /notification tray/i })).not.toBeInTheDocument();
     });
   });
 });
